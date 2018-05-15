@@ -9,6 +9,7 @@ package ge.economy.law.utils;
 import com.google.gson.Gson;
 
 /**
+ *
  * @author ucha
  */
 public abstract class JsonSerializable {

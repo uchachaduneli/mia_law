@@ -8,6 +8,7 @@ package ge.economy.law.utils;
 import java.text.DecimalFormat;
 
 /**
+ *
  * @author ucha
  */
 public class NumberUtils {

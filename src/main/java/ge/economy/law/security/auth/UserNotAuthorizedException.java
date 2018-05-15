@@ -5,6 +5,7 @@
 package ge.economy.law.security.auth;
 
 /**
+ *
  * @author ucha
  */
 public class UserNotAuthorizedException extends Exception {

@@ -1,5 +1,6 @@
 package ge.economy.law.controller;
 
+import ge.economy.law.dto.UserDTO;
 import ge.economy.law.misc.Response;
 import ge.economy.law.request.AddCaseRequest;
 import ge.economy.law.request.SearchCaseRequest;
@@ -33,7 +34,10 @@ public class CaseController {
 
     @ResponseBody
     @RequestMapping({"/get-cases"})
-    public Response getCases(@RequestParam("start") int start, @RequestParam("limit") int limit, @RequestBody SearchCaseRequest srchCase) {
+    public Response getCases(@RequestParam("start") int start, @RequestParam("limit") int limit, @RequestBody SearchCaseRequest srchCase, HttpServletRequest servletRequest) {
+        if ((Integer) servletRequest.getSession().getAttribute("typeId") == UserDTO.USER_OPERATOR) {
+            srchCase.setAddUserId((Integer) servletRequest.getSession().getAttribute("userId"));
+        }
         return Response.withSuccess(caseService.getCases(start, limit, srchCase));
     }
 

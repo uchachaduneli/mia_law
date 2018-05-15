@@ -6,6 +6,7 @@
 package ge.economy.law.security.api;
 
 /**
+ *
  * @author ucha
  */
 public interface SecurityAPI {

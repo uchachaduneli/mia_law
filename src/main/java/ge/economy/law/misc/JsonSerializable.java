@@ -4,6 +4,7 @@ package ge.economy.law.misc;
 import com.google.gson.Gson;
 
 /**
+ *
  * @author ucha
  */
 public abstract class JsonSerializable {

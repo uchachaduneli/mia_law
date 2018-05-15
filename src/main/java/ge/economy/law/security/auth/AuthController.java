@@ -72,6 +72,7 @@ public class AuthController {
         session.removeAttribute("firstname");
         session.removeAttribute("lastname");
         session.removeAttribute("typeId");
+        session.removeAttribute("typeName");
         session.invalidate();
         return "redirect:login";
     }

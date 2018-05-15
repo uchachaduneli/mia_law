@@ -15,7 +15,7 @@ import javax.annotation.Generated;
 
 
 /**
- * A class modelling foreign key relationships between tables of the <code>public</code>
+ * A class modelling foreign key relationships between tables of the <code>public</code> 
  * schema
  */
 @Generated(

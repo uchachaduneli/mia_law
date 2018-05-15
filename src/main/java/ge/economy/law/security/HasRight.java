@@ -11,6 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ *
  * @author ucha
  */
 @Target({ElementType.METHOD, ElementType.TYPE})

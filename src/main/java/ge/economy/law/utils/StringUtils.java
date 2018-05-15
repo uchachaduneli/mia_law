@@ -6,6 +6,7 @@
 package ge.economy.law.utils;
 
 /**
+ *
  * @author ucha
  */
 public class StringUtils {

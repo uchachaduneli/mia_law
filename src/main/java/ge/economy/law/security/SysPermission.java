@@ -1,6 +1,7 @@
 package ge.economy.law.security;
 
 /**
+ *
  * @author ucha
  */
 public class SysPermission {

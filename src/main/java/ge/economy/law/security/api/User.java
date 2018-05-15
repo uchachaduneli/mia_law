@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
+ *
  * @author ucha
  */
 public abstract class User implements Serializable {

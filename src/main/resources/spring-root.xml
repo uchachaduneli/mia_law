@@ -20,10 +20,17 @@
 
     <bean id="dtSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.postgresql.Driver"/>
-        <!--<property name="url" value="jdbc:postgresql://localhost:5432/law?currentSchema=public"/>-->
+        <!--lawyers.economy.ge-->
+        <!--<property name="url" value="jdbc:postgresql://localhost:5432/lawyers?currentSchema=public"/>-->
         <property name="url" value="jdbc:postgresql://10.20.21.85:5432/lawyers?currentSchema=public"/>
         <property name="username" value="nlomineishvili"/>
         <property name="password" value="2wsx@WSX"/>
+
+        <!--LAWYERS.MIA.GE-->
+        <!--<property name="url" value="jdbc:postgresql://localhost:5432/lawyers?currentSchema=public"/>-->
+        <!--<property name="url" value="jdbc:postgresql://10.31.16.11:5432/lawyers?currentSchema=public"/>-->
+        <!--<property name="username" value="postgres"/>-->
+        <!--<property name="password" value="Ta5fW5y3LJ0dhmHd"/>-->
     </bean>
 
 
@@ -31,12 +38,6 @@
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="ignoreResourceNotFound" value="true"/>
-        <!--<property name="locations">-->
-        <!--<list>-->
-        <!--<value>file:///opt/involve/config/involve-api.properties</value>-->
-        <!--<value>classpath:involve-api.properties</value>-->
-        <!--</list>-->
-        <!--</property>-->
     </bean>
 
     <bean id="transactionAwareDataSource"
@@ -77,8 +78,10 @@
     </bean>
 
     <bean name="fileService" class="ge.economy.law.service.FileService">
-        <property name="rootDir" value="/home/tomcat/webapps/domains/lawyers1.economy.ge/uploads"/>
+        <!--<property name="rootDir"-->
+        <!--value="C:\Program Files\Apache Software Foundation\Apache Tomcat 8.0.27\webapps\ROOT\uploads"/>-->
         <!--<property name="rootDir" value="/usr/share/tomcat/webapps/domains/lawyers-test.economy.ge/uploads"/>-->
+        <property name="rootDir" value="/data"/>
     </bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

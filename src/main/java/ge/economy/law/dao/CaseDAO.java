@@ -79,17 +79,17 @@ public class CaseDAO extends AbstractDAO {
 
         SelectConditionStep<Record> selectConditionStep = dslContext.select()
                 .from(c)
-                .join(Tables.LITIGATION_SUBJECT)
+                .leftJoin(Tables.LITIGATION_SUBJECT)
                 .on(c.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID))
-                .join(Tables.END_RESULT)
+                .leftJoin(Tables.END_RESULT)
                 .on(c.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID))
-                .join(Tables.COURT)
+                .leftJoin(Tables.COURT)
                 .on(c.COURT_ID.eq(Tables.COURT.COURT_ID))
-                .join(Tables.USER)
+                .leftJoin(Tables.USER)
                 .on(c.ADD_USER_ID.eq(Tables.USER.USER_ID))
-                .join(Tables.JUDGE)
+                .leftJoin(Tables.JUDGE)
                 .on(c.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID))
-                .join(Tables.STATUS)
+                .leftJoin(Tables.STATUS)
                 .on(c.STATUS_ID.eq(Tables.STATUS.STATUS_ID))
                 .where(DSL.and(condition));
 

@@ -12,6 +12,7 @@ import java.util.Date;
 import static ge.economy.law.misc.JsonDateDeSerializeSupport.DATE_FORMAT;
 
 /**
+ *
  * @author ucha
  */
 public class JsonDateSerializeSupport extends JsonSerializer<Date> {
