@@ -806,7 +806,7 @@
                                    data-target="#detailModal" class="btn btn-xs">
                                     <i class="fa fa-sticky-note-o"></i>&nbsp; დეტალურად
                                 </a>&nbsp;&nbsp;
-                                <c:if test="<%= isAdmin %>">
+                              <%--<c:if test="<%= isAdmin %>">--%>
                                     <a ng-click="edit(r.caseId)" data-toggle="modal" data-target="#editModal"
                                        class="btn btn-xs">
                                         <i class="fa fa-pencil"></i>&nbsp;შეცვლა
@@ -814,7 +814,7 @@
                                     <a ng-click="remove(r.caseId)" class="btn btn-xs">
                                         <i class="fa fa-trash-o"></i>&nbsp;წაშლა
                                     </a>
-                                </c:if>
+                              <%--</c:if>--%>
                             </td>
                         </tr>
                         </tbody>
