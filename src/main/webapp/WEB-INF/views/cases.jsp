@@ -65,7 +65,7 @@
     app.controller("angController", function ($scope, $http, $filter) {
         $scope.start = 0;
         $scope.page = 1;
-        $scope.limit = "10";
+      $scope.limit = "100";
         $scope.request = {docs: []};
         $scope.srchCase = {};
 //        $scope.request.docs = [];
@@ -309,7 +309,7 @@
                         <tr>
                             <th class="text-right">სამინისტროს სტატუსი</th>
                             <td>{{slcted.ministryStatus === 1 ? 'მოპასუხე': slcted.ministryStatus === 2 ? 'მესამე პირი'
-                                :''}}
+                              :slcted.ministryStatus === 3 ? 'მოსარჩელე':''}}
                             </td>
                         </tr>
                         <tr>
@@ -522,6 +522,8 @@
                                     </option>
                                     <option ng-selected="2 === request.ministryStatus" value="{{2}}">მესამე პირი
                                     </option>
+                                  <option ng-selected="3 === request.ministryStatus" value="{{3}}">მოსარჩელე
+                                  </option>
                                 </select>
                             </div>
                         </div>
@@ -758,6 +760,8 @@
                                         </option>
                                         <option ng-selected="2 === srchCase.ministryStatus" value="{{2}}">მესამე პირი
                                         </option>
+                                      <option ng-selected="3 === srchCase.ministryStatus" value="{{3}}">მოსარჩელე
+                                      </option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-2">
