@@ -29,6 +29,15 @@ public class SearchCaseRequest {
     private Integer courtInstanceId;
     private Integer boardId;
     private Integer ministryStatus;
+    private boolean orderByUser;
+
+    public boolean isOrderByUser() {
+        return orderByUser;
+    }
+
+    public void setOrderByUser(boolean orderByUser) {
+        this.orderByUser = orderByUser;
+    }
 
     public Integer getBoardId() {
         return boardId;

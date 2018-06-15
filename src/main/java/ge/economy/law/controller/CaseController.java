@@ -36,7 +36,8 @@ public class CaseController {
     @RequestMapping({"/get-cases"})
     public Response getCases(@RequestParam("start") int start, @RequestParam("limit") int limit, @RequestBody SearchCaseRequest srchCase, HttpServletRequest servletRequest) {
         if ((Integer) servletRequest.getSession().getAttribute("typeId") == UserDTO.USER_OPERATOR) {
-            srchCase.setAddUserId((Integer) servletRequest.getSession().getAttribute("userId"));
+//            srchCase.setAddUserId((Integer) servletRequest.getSession().getAttribute("userId"));
+            srchCase.setOrderByUser(true);
         }
         return Response.withSuccess(caseService.getCases(start, limit, srchCase));
     }

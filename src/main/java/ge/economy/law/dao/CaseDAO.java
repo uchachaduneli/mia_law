@@ -96,7 +96,13 @@ public class CaseDAO extends AbstractDAO {
 
         SelectConditionStep<Record> selectConditionStepSize = selectConditionStep;
         int recordSize = selectConditionStepSize.fetch().size();
-        selectConditionStep.orderBy(c.CASE_ID.desc()).limit(limit).offset(start);
+        if (srchCase.isOrderByUser()) {
+            selectConditionStep.orderBy(c.ADD_USER_ID.asc(), c.CASE_ID.desc());
+        } else {
+            selectConditionStep.orderBy(c.CASE_ID.desc());
+        }
+
+        selectConditionStep.limit(limit).offset(start);
 
         HashMap<String, Object> map = new HashMap();
         map.put("list", selectConditionStep.fetch());

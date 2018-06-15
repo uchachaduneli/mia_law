@@ -22,15 +22,15 @@
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <!--lawyers.economy.ge-->
         <!--<property name="url" value="jdbc:postgresql://localhost:5432/lawyers?currentSchema=public"/>-->
-        <property name="url" value="jdbc:postgresql://10.20.21.85:5432/lawyers?currentSchema=public"/>
-        <property name="username" value="nlomineishvili"/>
-        <property name="password" value="2wsx@WSX"/>
+        <!--<property name="url" value="jdbc:postgresql://10.20.21.85:5432/lawyers?currentSchema=public"/>-->
+        <!--<property name="username" value="nlomineishvili"/>-->
+        <!--<property name="password" value="2wsx@WSX"/>-->
 
         <!--LAWYERS.MIA.GE-->
-        <!--<property name="url" value="jdbc:postgresql://localhost:5432/lawyers?currentSchema=public"/>-->
+        <property name="url" value="jdbc:postgresql://localhost:5432/lawyers?currentSchema=public"/>
         <!--<property name="url" value="jdbc:postgresql://10.31.16.11:5432/lawyers?currentSchema=public"/>-->
-        <!--<property name="username" value="postgres"/>-->
-        <!--<property name="password" value="Ta5fW5y3LJ0dhmHd"/>-->
+        <property name="username" value="postgres"/>
+        <property name="password" value="Ta5fW5y3LJ0dhmHd"/>
     </bean>
 
 
