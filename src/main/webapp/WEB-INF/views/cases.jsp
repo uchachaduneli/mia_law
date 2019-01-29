@@ -818,8 +818,8 @@
               <td>{{r.judgeName}}</td>
               <td>{{r.caseStartDate}}</td>
               <td>{{r.caseEndDate}}</td>
-              <td>{{r.addUserName}}</td>
-              <td>{{r.statusName}}</td>
+              <td><%=((String) session.getAttribute("userToken")) %></td>
+              <td>{{r.userToken}}</td>
               <td class="text-center">
                 <a ng-click="showDetails(r.caseId)" data-toggle="modal" title="დეტალურად"
                    data-target="#detailModal" class="btn btn-xs">
@@ -827,13 +827,13 @@
                 </a>&nbsp;&nbsp;
                 <%--<c:if test="<%= isAdmin %>">--%>
                 <a ng-click="edit(r.caseId)" data-toggle="modal"
-                   ng-if="<%= isAdmin %> || <%=((Integer) session.getAttribute("userId"))%> == r.addUserId"
+                   ng-if="<%=((String) session.getAttribute("userToken"))%> == r.userToken"
                    data-target="#editModal"
                    class="btn btn-xs">
                   <i class="fa fa-pencil"></i>&nbsp;შეცვლა
                 </a>&nbsp;&nbsp;
                 <a ng-click="remove(r.caseId)"
-                   ng-if="<%= isAdmin %> || <%=((Integer) session.getAttribute("userId"))%> == r.addUserId"
+                   ng-if="<%=((String) session.getAttribute("userToken")) %> == r.userToken"
                    class="btn btn-xs">
                   <i class="fa fa-trash-o"></i>&nbsp;წაშლა
                 </a>

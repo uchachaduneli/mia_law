@@ -37,10 +37,10 @@ public class CaseService {
     @Autowired
     private DSLContext dslContext;
 
-    public HashMap<String, Object> getCases(int start, int limit, SearchCaseRequest srchCase) {
-        new HashMap();
-        HashMap<String, Object> resultMap = new HashMap();
-        HashMap<String, Object> map = caseDAO.getCases(start, limit, srchCase);
+    public HashMap<String, Object> getCases(int start, int limit, SearchCaseRequest srchCase,String userRole) {
+    	
+        HashMap<String, Object> resultMap = new HashMap<>();
+        HashMap<String, Object> map = caseDAO.getCases(start, limit, srchCase,userRole);
         List<CaseDTO> items = CaseDTO.translateArray((List) map.get("list"));
         resultMap.put("list", items);
         resultMap.put("size", map.get("size"));
@@ -73,7 +73,7 @@ public class CaseService {
             record.setGroupId(new SimpleDateFormat("yyMMddhhmmssMs").format(new java.util.Date()));
         }
 
-        if (!newRecord && request.getCourtInstanceId() != record.getCourtInstanceId()) {//ინსტანციის ისტორიაში გადაყრა
+        if (!newRecord && request.getCourtInstanceId() != record.getCourtInstanceId()) {//áƒ˜áƒœáƒ¡áƒ¢áƒ�áƒœáƒªáƒ˜áƒ˜áƒ¡ áƒ˜áƒ¡áƒ¢áƒ�áƒ áƒ˜áƒ�áƒ¨áƒ˜ áƒ’áƒ�áƒ“áƒ�áƒ§áƒ áƒ�
             newInstanceHidtoryRecord = true;
             record = dslContext.newRecord(Tables.CASE);
             record.setAddUserId(request.getAddUserId());
@@ -101,7 +101,7 @@ public class CaseService {
         record.setThirdPersons(request.getThirdPersons());
         record.setCourtInstanceId(request.getCourtInstanceId());
 
-        if (newRecord || newInstanceHidtoryRecord) {// თუ ახალ ინსტანციაზე გადავიდა ახალი ჩანაწერი კეთდება ცხრილში დატაც მიყვება შეიძლება შეცვლილი
+        if (newRecord || newInstanceHidtoryRecord) {// áƒ—áƒ£ áƒ�áƒ®áƒ�áƒš áƒ˜áƒœáƒ¡áƒ¢áƒ�áƒœáƒªáƒ˜áƒ�áƒ–áƒ” áƒ’áƒ�áƒ“áƒ�áƒ•áƒ˜áƒ“áƒ� áƒ�áƒ®áƒ�áƒšáƒ˜ áƒ©áƒ�áƒœáƒ�áƒ¬áƒ”áƒ áƒ˜ áƒ™áƒ”áƒ—áƒ“áƒ”áƒ‘áƒ� áƒªáƒ®áƒ áƒ˜áƒšáƒ¨áƒ˜ áƒ“áƒ�áƒ¢áƒ�áƒª áƒ›áƒ˜áƒ§áƒ•áƒ”áƒ‘áƒ� áƒ¨áƒ”áƒ˜áƒ«áƒšáƒ”áƒ‘áƒ� áƒ¨áƒ”áƒªáƒ•áƒšáƒ˜áƒšáƒ˜
             record.store();
         } else {
             record.update();

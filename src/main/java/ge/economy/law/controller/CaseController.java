@@ -39,7 +39,7 @@ public class CaseController {
 //            srchCase.setAddUserId((Integer) servletRequest.getSession().getAttribute("userId"));
             srchCase.setOrderByUser(true);
         }
-        return Response.withSuccess(caseService.getCases(start, limit, srchCase));
+        return Response.withSuccess(caseService.getCases(start, limit, srchCase,servletRequest.getSession().getAttribute("userRole").toString()));
     }
 
     @ResponseBody

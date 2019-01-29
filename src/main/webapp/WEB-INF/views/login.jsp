@@ -23,6 +23,8 @@
     <script src="resources/js/growlMessages.js"></script>
     <script src="resources/js/jquery.bootstrap-growl.min.js"></script>
     <script src="resources/js/angular.js"></script>
+    <script src="resources/js/keycloak.js"></script>
+    
 
     <script type="text/javascript">
         $(document).keypress(function (e) {
@@ -30,6 +32,23 @@
                 document.getElementById("auth").click();
             }
         });
+        
+        var keycloak = Keycloak({
+            realm: 'demo',
+            url: 'https://accounts.pol.ge/auth',
+            clientId: 'justice'
+        });
+        
+        keycloak.init({ onLoad: 'login-required' }).success(function(authenticated) {
+        	console.log(authenticated);
+            alert(authenticated ? 'authenticated' : 'not authenticated');
+        }).error(function() {
+            alert('failed to initialize');
+        }); 
+        
+        
+        
+        
 
         var app = angular.module("app", []);
         app.controller("loginCtrl", function ($scope, $http, $location) {
@@ -38,12 +57,28 @@
             if (absUrl.split("?")[1]) {
                 $scope.uri = absUrl.split("?")[1].split("=")[1];
             }
-
             $scope.login = function () {
-
+            	console.log(keycloak.token);
+            	if (keycloak.idToken) {
+                	console.log('IDToken');
+                    console.log(keycloak.idTokenParsed.preferred_username);
+                    console.log(keycloak.resourceAccess['justice-service']);
+                } else {
+                    keycloak.loadUserProfile(function() {
+                    	 console.log('Account Service');
+                         console.log(keycloak.profile.username);
+                         console.log(keycloak.profile.email);
+                         console.log(keycloak.profile.firstName + ' ' + keycloak.profile.lastName );
+                         console.log(keycloak.profile.family_name);
+                    }, function() {
+                    });
+                } 
                 $.ajax({
                     type: "POST",
                     url: "login",
+                    headers: {
+                        "Authorization":"Bearer "+ keycloak.token
+                    },
                     data: "username=" + $scope.user.username + "&password=" + $scope.user.password,
                     success: function (response) {
                         location.reload();

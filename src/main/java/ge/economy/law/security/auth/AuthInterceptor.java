@@ -23,15 +23,15 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             if (uri.startsWith(request.getContextPath())) {
                 uri = uri.replace(request.getContextPath(), "");
             }
-
-            if (uri.length() > 0 && !uri.equals("/")) {
+            response.sendRedirect("login");
+            /*if (uri.length() > 0 && !uri.equals("/")) {
                 response.sendRedirect("login");
             } else {
-                response.sendRedirect("login");
-            }
+                
+            }*/
             return false;
         } else if (userId == null) {
-            response.sendError(353, "სესიას გაუვიდა ვადა, გთხოვთ თავიდან გაიაროთ ავტორიზაცია");
+            response.sendError(353, "áƒ¡áƒ”áƒ¡áƒ˜áƒ�áƒ¡ áƒ’áƒ�áƒ£áƒ•áƒ˜áƒ“áƒ� áƒ•áƒ�áƒ“áƒ�, áƒ’áƒ—áƒ®áƒ�áƒ•áƒ— áƒ—áƒ�áƒ•áƒ˜áƒ“áƒ�áƒœ áƒ’áƒ�áƒ˜áƒ�áƒ áƒ�áƒ— áƒ�áƒ•áƒ¢áƒ�áƒ áƒ˜áƒ–áƒ�áƒªáƒ˜áƒ�");
             return false;
         }
         return true;

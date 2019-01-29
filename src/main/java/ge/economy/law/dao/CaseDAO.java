@@ -22,11 +22,20 @@ import static org.jooq.impl.DSL.*;
 @Repository
 public class CaseDAO extends AbstractDAO {
 
-    public HashMap<String, Object> getCases(int start, int limit, SearchCaseRequest srchCase) {
+    public HashMap<String, Object> getCases(int start, int limit, SearchCaseRequest srchCase,String userRole) {
         Case c = Tables.CASE.as("c");
         List<Condition> condition = new ArrayList<>();
         if (srchCase.getCaseId() != null && srchCase.getCaseId() > 0) {
             condition.add(c.CASE_ID.eq(srchCase.getCaseId()));
+        }
+        if (userRole.equals("JUSTICE_OPERATOR")) {
+            condition.add(c.TOKEN.contains("JUSTICE_OPERATOR"));
+        }
+        if (userRole.equals("JUSTICE_SIP_ADMIN")) {
+            condition.add(c.TOKEN.contains("JUSTICE_SIP_ADMIN").or(c.TOKEN.contains("JUSTICE_SIP_OPERATOR")));
+        }
+        if (userRole.equals("JUSTICE_SIP_OPERATOR")) {
+            condition.add(c.TOKEN.contains("JUSTICE_SIP_OPERATOR"));
         }
         if (srchCase.getName() != null) {
             condition.add(c.NAME.like("%" + srchCase.getName() + "%"));

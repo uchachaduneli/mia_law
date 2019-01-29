@@ -48,6 +48,8 @@ public class Case extends TableImpl<CaseRecord> {
      * The column <code>public.case.case_id</code>.
      */
     public final TableField<CaseRecord, Integer> CASE_ID = createField("case_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaulted(true), this, "");
+    
+    public final TableField<CaseRecord, String> TOKEN = createField("token", org.jooq.impl.SQLDataType.VARCHAR.length(50).nullable(false),this, "");
 
     /**
      * The column <code>public.case.name</code>.
