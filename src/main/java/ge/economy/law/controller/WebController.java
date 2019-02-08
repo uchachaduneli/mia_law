@@ -54,11 +54,6 @@ public class WebController {
     public String caseresults() {
         return "caseresults";
     }
-
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
     
     
     @RequestMapping(value ="/greetings", method = {RequestMethod.GET})

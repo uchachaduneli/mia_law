@@ -23,6 +23,40 @@ function ajaxCall(http, url, data, sucessCallback, errorCallback) {
     });
 }
 
+
+function ajaxCallWithHeaders(http, url, data, sucessCallback, errorCallback,userName,userRole,user) {
+    if(user == undefined || user == null){
+        user = "";
+    }
+    http(
+        {
+            method: "POST",
+            url: url,
+            headers: {
+                'userRole': userRole,
+                'userName': userName,
+                'user': user},
+            contentType: "application/json; charset=utf-8",
+            data: data
+        }).success(function (data, status, headers, config) {
+        if (data.errorCode && data.errorCode >= 700) {
+            alert(data.errorCode + ": " + data.message);
+        } else {
+            sucessCallback(data);
+        }
+    }).error(function (data, status, headers, config) {
+        if (status == 701) {
+            window.location = data;
+        }
+        if (errorCallback) {
+            errorCallback(data);
+        } else {
+            alert(data);
+        }
+    });
+}
+
+
 function ajaxCallNotJsonContentType(http, url, data, sucessCallback, errorCallback) {
     http(
         {

@@ -3,9 +3,9 @@
     <!-- Configure the database connection here -->
     <jdbc>
         <driver>org.postgresql.Driver</driver>
-        <url>jdbc:postgresql://10.20.21.85:5432/lawyers</url>
-        <user>nlomineishvili</user>
-        <password>2wsx@WSX</password>
+        <url>jdbc:postgresql://localhost:5432/lawyers</url>
+        <user>postgres</user>
+        <password>Ta5fW5y3LJ0dhmHd</password>
 
         <!--     You can also pass user/password and other JDBC properties in the optional properties tag:
             <properties>

@@ -1,8 +1,7 @@
-package ge.economy.law.security.auth;
+/*package ge.economy.law.security.auth;
 
 import ge.economy.law.dto.UserDTO;
 import ge.economy.law.security.config.SecurityConfig;
-import ge.economy.law.service.UsersService;
 
 import org.keycloak.AuthorizationContext;
 import org.keycloak.KeycloakPrincipal;
@@ -34,18 +33,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 
-/**
+*//**
  * @author ucha
- */
+ *//*
 @Controller
 @RequestMapping
 public class AuthController {
 
-    @Autowired
-    private UsersService usersService;
+    //@Autowired
+    //private UsersService usersService;
     
     @Autowired
     private AccessToken accessToken;
+    
+    @Autowired
+    private KeycloakRestTemplate keycloakRestTemplate;
     
 
     @RequestMapping(value = "/login", method = {RequestMethod.GET})
@@ -64,9 +66,11 @@ public class AuthController {
     private String endpoint;
 
     @RequestMapping(value = "/login", method = {RequestMethod.POST})
-    public String verify(@RequestParam(value = "uri", required = false) String originalUri,@RequestHeader("Authorization") String encoding) throws Exception {
-        /*String username = request.getParameter("username");
-        String password = request.getParameter("password");*/
+    public String verify(@RequestParam(value = "uri", required = false) String originalUri,@RequestHeader("Authorization") String token,@RequestHeader("userName") String userName,
+    		@RequestHeader("userRole") String userRole) throws Exception {
+    	//UserDTO userDTO = new UserDTO(userName,userRole);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
         try {
         	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         	KeycloakAuthenticationToken authToken = (KeycloakAuthenticationToken) authentication;
@@ -99,7 +103,7 @@ public class AuthController {
 		}
 		return "aaa";
         
-        /*UserDTO foundedUser = usersService.login(username, password);
+        UserDTO foundedUser = usersService.login(username, password);
         if (foundedUser != null) {
             request.getSession().setAttribute("userId", foundedUser.getUserId());
             request.getSession().setAttribute("firstname", foundedUser.getFirstname());
@@ -123,17 +127,25 @@ public class AuthController {
         } else {
             response.sendError(400, "Ã¡Æ’â€ºÃ¡Æ’ï¿½Ã¡Æ’â€ºÃ¡Æ’Â®Ã¡Æ’â€ºÃ¡Æ’ï¿½Ã¡Æ’Â Ã¡Æ’â€�Ã¡Æ’â€˜Ã¡Æ’â€�Ã¡Æ’Å¡Ã¡Æ’Ëœ Ã¡Æ’ï¿½Ã¡Æ’Å“ Ã¡Æ’Å¾Ã¡Æ’ï¿½Ã¡Æ’Â Ã¡Æ’ï¿½Ã¡Æ’Å¡Ã¡Æ’Ëœ Ã¡Æ’ï¿½Ã¡Æ’Â Ã¡Æ’ï¿½Ã¡Æ’Â¡Ã¡Æ’Â¬Ã¡Æ’ï¿½Ã¡Æ’Â Ã¡Æ’ËœÃ¡Æ’ï¿½");
             return null;
-        }*/
+        }
     }
 
     @RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
-    public String logout(HttpSession session) {
-        session.removeAttribute("userId");
-        session.removeAttribute("firstname");
-        session.removeAttribute("lastname");
-        session.removeAttribute("typeId");
-        session.removeAttribute("typeName");
-        session.invalidate();
-        return "redirect:login";
+    public String logout() {
+    	UserDTO.isAdmin=false;
+    	UserDTO.userName="";
+    	UserDTO.userRole="";
+    	
+    	try {
+    		ResponseEntity<String> response = keycloakRestTemplate.getForEntity("https://accounts.pol.ge/auth/realms/demo/protocol/openid-connect/logout?",String.class);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		System.out.println(e.getMessage());
+    	}
+    	//keycloakRestTemplate.get
+        //return Arrays.asList(response.getBody());
+    	
+        return "redirect:cases";
     }
 }
+*/

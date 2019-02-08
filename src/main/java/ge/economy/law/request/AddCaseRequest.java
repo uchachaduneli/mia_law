@@ -41,12 +41,32 @@ public class AddCaseRequest {
     private String thirdPersons;
     private Integer ministryStatus;
     private List<AddCaseDocRequest> docs;
+    private String role;
+    private String user;
+    
+    
 
-    public List<AddCaseDocRequest> getDocs() {
+    public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public List<AddCaseDocRequest> getDocs() {
         return docs;
     }
 
-    public void setDocs(List<AddCaseDocRequest> docs) {
+    public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public void setDocs(List<AddCaseDocRequest> docs) {
         this.docs = docs;
     }
 

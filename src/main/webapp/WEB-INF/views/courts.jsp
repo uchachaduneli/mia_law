@@ -9,14 +9,45 @@
 <%@include file="header.jsp" %>
 
 <script>
+
+    var keycloak = Keycloak({
+            realm: 'demo',
+            url: 'https://accounts.pol.ge/auth',
+            clientId: 'justice'
+        });
+        
+        keycloak.init({ onLoad: 'login-required' }).success(function(authenticated) {
+            console.log('authenticated')
+        }).error(function() {
+            alert('failed to initialize');
+        });
+
+        keycloak.updateToken(5).success(function(refreshed) {
+        if (refreshed) {
+            console.log('Token was successfully refreshed');
+        } else {
+          console.log('Token is still valid');
+        }
+    }).error(function() {
+        console.log('Failed to refresh the token, or the session has expired');
+    });
+
+
     app.controller("angController", function ($scope, $http, $filter) {
 
         $scope.loadMainData = function () {
             function getMainData(res) {
                 $scope.list = res.data;
             }
-
-            ajaxCall($http, "courts/get-courts", null, getMainData);
+            if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
+    	        setTimeout(function () {
+        	        $scope.$apply(function(){
+                        ajaxCallWithHeaders($http, "courts/get-courts", null, getMainData,null, keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+        	        });
+        	    }, 1000);
+            }else{
+    	        ajaxCallWithHeaders($http, "courts/get-courts", null, getMainData,null, keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+            }
         }
 
         $scope.loadMainData();

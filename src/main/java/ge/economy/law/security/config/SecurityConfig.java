@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext;
+import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.client.KeycloakClientRequestFactory;
@@ -20,42 +21,36 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
-import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
-import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-//@KeycloakConfiguration
-@Configuration
-@EnableWebSecurity
-@ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
+@KeycloakConfiguration
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
-	/*@Autowired
-	KeycloakClientRequestFactory keycloakClientRequestFactory;*/
+	@Autowired
+	KeycloakClientRequestFactory keycloakClientRequestFactory;
 
 	@Bean
 	@Override
 	protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
 		return new NullAuthenticatedSessionStrategy();
-		//return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
+		// return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
 	}
 
-	/*@Bean
-	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	@Bean
+	@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public KeycloakRestTemplate keycloakRestTemplate() {
 		return new KeycloakRestTemplate(keycloakClientRequestFactory);
-	}*/
+
+	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -67,44 +62,41 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		super.configure(http);
-		/*http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				.sessionAuthenticationStrategy(sessionAuthenticationStrategy()).and().exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
-                    response.addHeader(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Restricted Content\"");
-                    response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
-                })
-                .and().authorizeRequests()
-				.anyRequest().permitAll();*/
-		/*http
-        .authorizeRequests()
-        .antMatchers("/*").hasRole("JUSTICE_OPERATOR")
-        .antMatchers("/cases/*").hasRole("JUSTICE_ADMIN")
-        .anyRequest().denyAll();*/
-		
-		http.authorizeRequests().antMatchers("/login*").permitAll().anyRequest().hasRole("JUSTICE_OPERATOR");
-		//http.authorizeRequests().anyRequest().permitAll();
-		//http.authorizeRequests().antMatchers("/*","/login*").authenticated().anyRequest().permitAll();
+
+		/*
+		 * http.authorizeRequests() .antMatchers("/login*", "/boards*", "/cases*",
+		 * "/courts*", "/courtInstances*", "/endresults", "/judges*",
+		 * "/litigationsubjects*", "/") .permitAll().anyRequest()
+		 * .hasAnyRole("JUSTICE_OPERATOR", "JUSTICE_ADMIN", "JUSTICE_SIP_ADMIN",
+		 * "JUSTICE_SIP_OPERATOR");
+		 */
+
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.sessionAuthenticationStrategy(sessionAuthenticationStrategy()).and().authorizeRequests()
+				.antMatchers("/login*").hasRole("ADMIN").anyRequest().permitAll();
+
 	}
-	
+
 	@Bean
-    @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public KeycloakSecurityContext provideKeycloakSecurityContext() {
+	@Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+	public KeycloakSecurityContext provideKeycloakSecurityContext() {
 
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        Principal principal = attributes.getRequest().getUserPrincipal();
-        if (principal == null) {
-            return null;
-        }
+		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+		Principal principal = attributes.getRequest().getUserPrincipal();
+		if (principal == null) {
+			return null;
+		}
 
-        if (principal instanceof KeycloakAuthenticationToken) {
-            principal = Principal.class.cast(KeycloakAuthenticationToken.class.cast(principal).getPrincipal());
-        }
+		if (principal instanceof KeycloakAuthenticationToken) {
+			principal = Principal.class.cast(KeycloakAuthenticationToken.class.cast(principal).getPrincipal());
+		}
 
-        if (principal instanceof KeycloakPrincipal) {
-            return KeycloakPrincipal.class.cast(principal).getKeycloakSecurityContext();
-        }
+		if (principal instanceof KeycloakPrincipal) {
+			return KeycloakPrincipal.class.cast(principal).getKeycloakSecurityContext();
+		}
 
-        return null;
-    }
+		return null;
+	}
 
 	@Bean
 	@Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)

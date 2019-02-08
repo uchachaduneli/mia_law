@@ -61,13 +61,39 @@
     });
 
   });
+  
 
-  app.controller("angController", function ($scope, $http, $filter) {
+  var keycloak = Keycloak({
+            realm: 'demo',
+            url: 'https://accounts.pol.ge/auth',
+            clientId: 'justice'
+        });
+        
+        keycloak.init({ onLoad: 'login-required' }).success(function(authenticated) {
+        	console.log(authenticated);
+        }).error(function() {
+            alert('failed to initialize');
+        });
+
+        keycloak.updateToken(5).success(function(refreshed) {
+        if (refreshed) {
+            console.log('Token was successfully refreshed');
+        } else {
+          console.log('Token is still valid');
+        }
+    }).error(function() {
+        console.log('Failed to refresh the token, or the session has expired');
+    });
+        
+
+  app.controller("angController", function ($scope, $http, $filter,$timeout) {
     $scope.start = 0;
-    $scope.page = 1;
+    $scope.page = 0;
     $scope.limit = "10";
     $scope.request = {docs: []};
     $scope.srchCase = {};
+
+    
 //        $scope.request.docs = [];
 
     $scope.loadMainData = function () {
@@ -78,8 +104,23 @@
         $scope.rowCount = res.data.size;
         $('#loadingModal').modal('hide');
       }
-
-      ajaxCall($http, "cases/get-cases?start=" + $scope.start + "&limit=" + $scope.limit, angular.toJson($scope.srchCase), getMainData);
+      if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
+    	  setTimeout(function () {
+        	  $scope.$apply(function(){
+        		  ajaxCallWithHeaders($http, "cases/get-cases?start=" + $scope.start + "&limit=" + $scope.limit, 
+                          angular.toJson($scope.srchCase), getMainData,null, keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+        		  
+        	  });
+        	}, 1000);
+      }else{
+    	  ajaxCallWithHeaders($http, "cases/get-cases?start=" + $scope.start + "&limit=" + $scope.limit, 
+                  angular.toJson($scope.srchCase), getMainData,null, keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+      }
+      
+        //ajaxCallWithHeaders($http, "cases/get-cases?start=" + $scope.start + "&limit=" + $scope.limit, 
+          //                  angular.toJson($scope.srchCase), getMainData,null, keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles);
+      
+      
     }
 
     $scope.loadMainData();
@@ -87,50 +128,127 @@
     function getlitigationsubjects(res) {
       $scope.litigationsubjects = res.data;
     }
-
-    ajaxCall($http, "litigationsubjects/get-litigationsubjects", null, getlitigationsubjects);
+    
+    if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
+    	  setTimeout(function () {
+        	  $scope.$apply(function(){
+        		  ajaxCallWithHeaders($http, "litigationsubjects/get-litigationsubjects", null, getlitigationsubjects,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+        		  
+        	  });
+        	}, 1000);
+      }else{
+    	  ajaxCallWithHeaders($http, "litigationsubjects/get-litigationsubjects", null, getlitigationsubjects,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+      }
+    
 
     function getjudges(res) {
       $scope.judges = res.data;
     }
 
-    ajaxCall($http, "judges/get-judges", null, getjudges);
+    if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
+    	  setTimeout(function () {
+        	  $scope.$apply(function(){
+        		  ajaxCallWithHeaders($http, "judges/get-judges", null, getjudges,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+        		  
+        	  });
+        	}, 1000);
+      }else{
+    	  ajaxCallWithHeaders($http, "judges/get-judges", null, getjudges,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+      }
 
     function getcourtInstances(res) {
       $scope.courtInstances = res.data;
     }
 
-    ajaxCall($http, "courtInstances/get-courtinstances", null, getcourtInstances);
+    if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
+    	  setTimeout(function () {
+        	  $scope.$apply(function(){
+        		  ajaxCallWithHeaders($http, "courtInstances/get-courtinstances", null, getcourtInstances,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+        		  
+        	  });
+        	}, 1000);
+      }else{
+    	  ajaxCallWithHeaders($http, "courtInstances/get-courtinstances", null, getcourtInstances,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+      }
+    
 
     function getendresults(res) {
       $scope.endresults = res.data;
     }
-
-    ajaxCall($http, "endresults/get-endresults", null, getendresults);
+    
+    if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
+    	  setTimeout(function () {
+        	  $scope.$apply(function(){
+        		  ajaxCallWithHeaders($http, "endresults/get-endresults", null, getendresults,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+        		  
+        	  });
+        	}, 1000);
+      }else{
+    	  ajaxCallWithHeaders($http, "endresults/get-endresults", null, getendresults,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+      }
+    
 
     function getcourts(res) {
       $scope.courts = res.data;
     }
-
-    ajaxCall($http, "courts/get-courts", null, getcourts);
+    
+    if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
+    	  setTimeout(function () {
+        	  $scope.$apply(function(){
+        		  ajaxCallWithHeaders($http, "courts/get-courts", null, getcourts,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+        		  
+        	  });
+        	}, 1000);
+      }else{
+    	  ajaxCallWithHeaders($http, "courts/get-courts", null, getcourts,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+      }
+    
 
     function getstatuses(res) {
       $scope.statuses = res.data;
     }
-
-    ajaxCall($http, "cases/get-status", null, getstatuses);
+    
+    if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
+    	  setTimeout(function () {
+        	  $scope.$apply(function(){
+        		  ajaxCall($http, "cases/get-status", null, getstatuses,keycloak.idTokenParsed.name);
+        		  
+        	  });
+        	}, 1000);
+      }else{
+    	  ajaxCall($http, "cases/get-status", null, getstatuses,keycloak.idTokenParsed.name);
+      }
 
     function getUsers(res) {
       $scope.users = res.data;
     }
-
-    ajaxCall($http, "users/get-users", null, getUsers);
+    
+    if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
+    	  setTimeout(function () {
+        	  $scope.$apply(function(){
+        		  ajaxCallWithHeaders($http, "users/get-users", null, getUsers,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+        		  
+        	  });
+        	}, 1000);
+      }else{
+    	  ajaxCallWithHeaders($http, "users/get-users", null, getUsers,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+      }
 
     function getBoards(res) {
       $scope.boards = res.data;
     }
-
-    ajaxCall($http, "boards/get-boards", null, getBoards);
+    
+    if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
+    	  setTimeout(function () {
+        	  $scope.$apply(function(){
+        		  ajaxCallWithHeaders($http, "boards/get-boards", null, getBoards,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+        		  
+        	  });
+        	}, 1000);
+      }else{
+    	  ajaxCallWithHeaders($http, "boards/get-boards", null, getBoards,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+      }
+    
 
     $scope.remove = function (id) {
       if (confirm("დარწმუნებული ხართ რომ გსურთ წაშლა?")) {
@@ -142,7 +260,7 @@
             }
           }
 
-          ajaxCall($http, "cases/delete-case?id=" + id, null, resFnc);
+          ajaxCallWithHeaders($http, "cases/delete-case?id=" + id, null, resFnc,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
         }
       }
     };
@@ -190,10 +308,35 @@
       }
     };
 
+    
+
     $scope.init = function () {
       $scope.request = {docs: []};
       $('#uploadDocNameInput').val();
     };
+    
+
+$scope.reAssign = function () {
+
+
+function resFunc(res) {
+  if (res.errorCode == 0) {
+    successMsg('ოპერაცია დასრულდა წარმატებით');
+    $scope.loadMainData();
+    closeModal('assignModal');
+  } else {
+    console.log(res);
+    errorMsg('ოპერაცია არ სრულდება! გადაამოწმეთ ველების მართებულობა');
+  }
+}
+if ($scope.request.caseStartDate != undefined && $scope.request.caseStartDate.includes('/')) {
+        $scope.request.caseStartDate = $scope.request.caseStartDate.split(/\//).reverse().join('-')
+      }
+      if ($scope.request.caseEndDate != undefined && $scope.request.caseEndDate.includes('/')) {
+        $scope.request.caseEndDate = $scope.request.caseEndDate.split(/\//).reverse().join('-')
+      }
+ajaxCallWithHeaders($http, "cases/save-case", angular.toJson($scope.request), resFunc,null, keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
+};
 
     $scope.save = function () {
 
@@ -207,6 +350,7 @@
           $scope.loadMainData();
           closeModal('editModal');
         } else {
+        	console.log(res);
           errorMsg('ოპერაცია არ სრულდება! გადაამოწმეთ ველების მართებულობა');
         }
       }
@@ -217,7 +361,7 @@
       if ($scope.request.caseEndDate != undefined && $scope.request.caseEndDate.includes('/')) {
         $scope.request.caseEndDate = $scope.request.caseEndDate.split(/\//).reverse().join('-')
       }
-      ajaxCall($http, "cases/save-case", angular.toJson($scope.request), resFunc);
+      ajaxCallWithHeaders($http, "cases/save-case", angular.toJson($scope.request), resFunc,null, keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
     };
 
     $scope.chooseInstance = function (v) {
@@ -226,7 +370,7 @@
 
     $scope.handlePage = function (h) {
       if (parseInt(h) >= 0) {
-        $scope.page += 1;
+    	$scope.page += 1;
         $scope.start = $scope.page * $scope.limit;
       } else {
         $scope.page -= 1;
@@ -363,7 +507,7 @@
             </tr>
             <tr>
               <th class="text-right">თანამშრომელი</th>
-              <td>{{slcted.addUserName}}</td>
+              <td>{{slcted.user}}</td>
             </tr>
             <tr>
               <th class="text-right">საქმის სტატუსი</th>
@@ -609,6 +753,45 @@
   </div>
 </div>
 
+
+<div class="modal fade bs-example-modal-lg not-printable" id="assignModal" role="dialog" aria-labelledby="assignModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="assignModalLabel">მიუთითეთ თანამშრომელი რომელსაც გადაეწერება საქმე</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <form class="form-horizontal" name="ReAssignForm">
+            
+            <div class="form-group col-sm-10 ">
+              <label class="control-label col-sm-3">თანამშრომელი რომელსაც ეწერება (*)</label>
+              <div class="col-sm-9">
+                <select class="form-control" ng-model="request.addUserId" name="userId" required>
+                  <option ng-repeat="v in users" ng-selected="v.userId === request.addUserId"
+                          value="{{v.userId}}">{{v.name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group col-sm-10"></div>
+            <div class="form-group col-sm-10"></div>
+            <div class="form-group col-sm-12 text-center">
+              <a class="btn btn-app" ng-click="reAssign()">
+                <i class="fa fa-save"></i> შენახვა
+              </a>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row not-printable">
   <div class="col-xs-12">
     <div class="box">
@@ -758,7 +941,7 @@
                     <option value="" selected="selected">მომხმარებელი</option>
                     <option ng-repeat="v in users"
                             ng-selected="v.userId === srchCase.addUserId"
-                            value="{{v.userId}}">{{v.firstname}}{{v.lastname}}
+                            value="{{v.userId}}">{{v.name}}
                     </option>
                   </select>
                 </div>
@@ -818,26 +1001,30 @@
               <td>{{r.judgeName}}</td>
               <td>{{r.caseStartDate}}</td>
               <td>{{r.caseEndDate}}</td>
-              <td><%=((String) session.getAttribute("userToken")) %></td>
-              <td>{{r.userToken}}</td>
+              <td>{{r.user}}</td>
+              <td>{{r.statusName}}</td>
               <td class="text-center">
                 <a ng-click="showDetails(r.caseId)" data-toggle="modal" title="დეტალურად"
                    data-target="#detailModal" class="btn btn-xs">
                   <i class="fa fa-sticky-note-o"></i>&nbsp; დეტალურად
                 </a>&nbsp;&nbsp;
-                <%--<c:if test="<%= isAdmin %>">--%>
                 <a ng-click="edit(r.caseId)" data-toggle="modal"
-                   ng-if="<%=((String) session.getAttribute("userToken"))%> == r.userToken"
+                   ng-if="r.ownsUser"
                    data-target="#editModal"
                    class="btn btn-xs">
                   <i class="fa fa-pencil"></i>&nbsp;შეცვლა
                 </a>&nbsp;&nbsp;
+                <a ng-click="edit(r.caseId)" data-toggle="modal"
+                  ng-if="r.ownsUser"
+                  data-target="#assignModal"
+                  class="btn btn-xs">
+                  <i class="fa fa-peperson"></i>&nbsp;გადაწერა
+                </a>&nbsp;&nbsp;
                 <a ng-click="remove(r.caseId)"
-                   ng-if="<%=((String) session.getAttribute("userToken")) %> == r.userToken"
+                   ng-if="r.ownsUser"
                    class="btn btn-xs">
                   <i class="fa fa-trash-o"></i>&nbsp;წაშლა
                 </a>
-                <%--</c:if>--%>
               </td>
             </tr>
             </tbody>

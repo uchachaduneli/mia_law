@@ -1,16 +1,14 @@
 package ge.economy.law.controller;
 
-import ge.economy.law.misc.Response;
-import ge.economy.law.request.AddUserRequest;
-import ge.economy.law.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import ge.economy.law.dto.UserDTO;
+import ge.economy.law.misc.Response;
+import ge.economy.law.service.UsersService;
 
 
 /**
@@ -25,11 +23,14 @@ public class UserController {
 
     @RequestMapping("/get-users")
     @ResponseBody
-    private Response getUsers() throws Exception {
-        return Response.withSuccess(userService.getUsers());
+    private Response getUsers(@RequestHeader("userName") String username, @RequestHeader("userRole") String roles,
+			@RequestHeader("user") String user) throws Exception {
+    	String buildRoles  = ge.economy.law.utils.StringUtils.rebuildString(roles);
+    	UserDTO.setValues(username, buildRoles, user);
+        return Response.withSuccess(userService.getUsers(buildRoles));
     }
 
-    @RequestMapping("/get-user-types")
+    /*@RequestMapping("/get-user-types")
     @ResponseBody
     private Response getUserTypes() throws Exception {
         return Response.withSuccess(userService.getUserTypes());
@@ -54,7 +55,7 @@ public class UserController {
         if (userId != null) {
             return Response.withSuccess(userService.changePassword(userId, pass, newpass));
         } else {
-            return Response.withError("პაროლის შესაცვლელად გაიარეთ ავტორიზაცია");
+            return Response.withError("áƒžáƒ�áƒ áƒ�áƒšáƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒ�áƒªáƒ•áƒšáƒ”áƒšáƒ�áƒ“ áƒ’áƒ�áƒ˜áƒ�áƒ áƒ”áƒ— áƒ�áƒ•áƒ¢áƒ�áƒ áƒ˜áƒ–áƒ�áƒªáƒ˜áƒ�");
         }
     }
 
@@ -63,6 +64,6 @@ public class UserController {
     public Response deleteUser(@RequestParam int id) {
         userService.deleteUser(id);
         return Response.withSuccess(true);
-    }
+    }*/
 
 }

@@ -42,15 +42,17 @@ public class CaseDTO {
 	private Integer ministryStatus;
 	private String boardName;
 	private String thirdPersons;
-	private String userToken;
+	private String role;
+	private boolean ownsUser;
+	private String user;
 
-	public static CaseDTO translate(Record record) {
+	public static CaseDTO translate(Record record, String username) {
 		CaseDTO dto = new CaseDTO();
+		dto.setOwnsUser(false);
 		dto.setCaseId(record.getValue(Tables.CASE.CASE_ID));
 		dto.setName(record.getValue(Tables.CASE.NAME));
 		dto.setNumber(record.getValue(Tables.CASE.NUMBER));
 		dto.setJudgeId(record.getValue(Tables.CASE.JUDGE_ID));
-		dto.setUserToken(record.getValue(Tables.CASE.TOKEN));
 		if (dto.getJudgeId() != null) {
 			dto.setJudgeName(record.getValue(Tables.JUDGE.NAME));
 			dto.setJudgeAssistant(record.getValue(Tables.JUDGE.ASSISTANT));
@@ -70,7 +72,8 @@ public class CaseDTO {
 		dto.setNote(record.getValue(Tables.CASE.NOTE));
 		dto.setAddUserId(record.getValue(Tables.CASE.ADD_USER_ID));
 		if (dto.getAddUserId() != null) {
-			dto.setAddUserName(record.getValue(Tables.USER.FIRSTNAME) + " " + record.getValue(Tables.USER.LASTNAME));
+			dto.setUser(record.getValue(Tables.USER.NAME));
+			dto.setAddUserName(record.getValue(Tables.USER.USERNAME));
 		}
 		dto.setCourtId(record.getValue(Tables.CASE.COURT_ID));
 		if (dto.getCourtId() != null && record.field(Tables.COURT.NAME) != null) {
@@ -92,15 +95,34 @@ public class CaseDTO {
 		if (dto.getBoardId() != null && record.field(Tables.BOARD.NAME) != null) {
 			dto.setBoardName(record.getValue(Tables.BOARD.NAME));
 		}
+		if (username.equals(dto.getAddUserName()) || UserDTO.isAdmin) {
+			dto.setOwnsUser(true);
+		}
 		return dto;
 	}
 
-	public static List<CaseDTO> translateArray(List<Record> records) {
+	public static List<CaseDTO> translateArray(List<Record> records, String username) {
 		ArrayList<CaseDTO> list = new ArrayList<CaseDTO>();
 		for (Record record : records) {
-			list.add(CaseDTO.translate(record));
+			list.add(CaseDTO.translate(record, username));
 		}
 		return list;
+	}
+
+	public Integer getAddUserId() {
+		return addUserId;
+	}
+
+	public void setAddUserId(Integer addUserId) {
+		this.addUserId = addUserId;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 	public Integer getMinistryStatus() {
@@ -271,13 +293,11 @@ public class CaseDTO {
 		this.note = note;
 	}
 
-	public Integer getAddUserId() {
-		return addUserId;
-	}
-
-	public void setAddUserId(Integer addUserId) {
-		this.addUserId = addUserId;
-	}
+	/*
+	 * public Integer getAddUserId() { return addUserId; }
+	 * 
+	 * public void setAddUserId(Integer addUserId) { this.addUserId = addUserId; }
+	 */
 
 	public String getAddUserName() {
 		return addUserName;
@@ -343,11 +363,20 @@ public class CaseDTO {
 		this.courtInstanceNote = courtInstanceNote;
 	}
 
-	public String getUserToken() {
-		return userToken;
+	public String getRole() {
+		return role;
 	}
 
-	public void setUserToken(String userToken) {
-		this.userToken = userToken;
+	public void setRole(String role) {
+		this.role = role;
 	}
+
+	public boolean isOwnsUser() {
+		return ownsUser;
+	}
+
+	public void setOwnsUser(boolean ownsUser) {
+		this.ownsUser = ownsUser;
+	}
+
 }

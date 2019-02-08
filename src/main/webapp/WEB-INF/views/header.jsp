@@ -1,8 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="ge.economy.law.dto.UserDTO" %>
+<%@ page import="ge.economy.law.dao.USER_ROLE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    boolean isAdmin = ((Integer) session.getAttribute("typeId") != null && (Integer) session.getAttribute("typeId") == UserDTO.USER_ADMIN);
+    boolean isAdmin = UserDTO.isAdmin;
 %>
 <!DOCTYPE html>
 <html>
@@ -37,6 +38,7 @@
     <script src="resources/js/global_util.js"></script>
     <script src="resources/js/growlMessages.js"></script>
     <script src="resources/js/requireds.js"></script>
+    <script src="resources/js/keycloak.js"></script>
     <script>
         $(document).ready(function () {
             $(".datepicker").datepicker({language: 'ka'});
@@ -73,20 +75,7 @@
             if (absUrl.split("?")[1]) {
                 $scope.uri = absUrl.split("?")[1].split("=")[1];
             }
-
-            $scope.changePassword = function () {
-                function resFunc(res) {
-                    if (res.errorCode == 0) {
-                        successMsg('ოპერაცია დასრულდა წარმატებით');
-                        closeModal('dropdown');
-                    } else {
-                        errorMsg('ოპერაცია არ სრულდება გადაამოწმეთ ველების სისწორე');
-                    }
-                    $scope.newpass = {};
-                }
-
-                ajaxCall($http, "users/change-password?pass=" + $scope.newpass.password + "&newpass=" + $scope.newpass.newpassword, null, resFunc);
-            };
+            
         });
     </script>
 </head>
@@ -104,44 +93,13 @@
             <div class="navbar-custom-menu" ng-controller="profileCtrl">
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-user"></i>
-                            <span class="hidden-xs"><%= session.getAttribute("firstname") %> <%= session.getAttribute("lastname")%></span>
+                            <span class="hidden-xs"><%= UserDTO.user %></span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li class="user-header">
-                                <p>
-                                    <%= session.getAttribute("firstname") %> <%= session.getAttribute("lastname")%>
-                                    <small><%= session.getAttribute("typeName") %>
-                                    </small>
-                                </p>
-                            </li>
-                            <li class="user-body text-center">
-                                <div class=" form-group has-feedback">
-                                    <input type="password" name="password" placeholder="ძველი პაროლი"
-                                           ng-model="newpass.password"
-                                           class="form-control">
-                                    <span class="fa fa-key form-control-feedback"></span>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <input type="password" name="password" placeholder="ახალი პაროლი"
-                                           ng-model="newpass.newpassword"
-                                           class="form-control">
-                                    <span class="fa fa-key form-control-feedback"></span>
-                                </div>
-                            </li>
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a href="" ng-click="changePassword()" class="btn btn-default btn-flat">შეცვლა</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a href="logout" class="btn btn-default btn-flat">გამოსვლა</a>
-                                </div>
-                            </li>
-                        </ul>
                     </li>
-                    <li title="გამოსვლა">
-                        <a href="logout"><i class="fa fa-sign-out"></i></a>
+                    <li title="გამოსვლა" ng-click="logout()">
+                        <a href="https://accounts.pol.ge/auth/realms/demo/protocol/openid-connect/logout?redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fge.economy.law%2Fcases"><i class="fa fa-sign-out"></i></a>
                     </li>
                 </ul>
             </div>
@@ -200,14 +158,14 @@
                             </span>
                         </a>
                     </li>
-                    <c:if test="<%= isAdmin %>">
-                        <li>
+                    <c:if test="<%= true %>">
+                        <!-- <li>
                             <a href="users">
                                 <i class="fa fa-users"></i>
                                 <span>მომხმარებლები</span>
                                 </span>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="statistics">
                                 <i class="fa fa-bar-chart"></i>
