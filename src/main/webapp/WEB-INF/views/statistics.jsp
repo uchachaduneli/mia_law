@@ -24,7 +24,7 @@
 <script>
 
 var keycloak = Keycloak({
-            realm: 'demo',
+            realm: 'icmia',
             url: 'https://accounts.pol.ge/auth',
             clientId: 'justice'
         });

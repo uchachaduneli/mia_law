@@ -1,5 +1,5 @@
 {
-  "realm": "demo",
+  "realm": "icmia",
   "resource": "justice-service",
   "auth-server-url": "https://accounts.pol.ge/auth",
   "bearer-only": true,

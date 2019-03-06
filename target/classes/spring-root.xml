@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <mvc:annotation-driven/>
+
+    <context:component-scan base-package="ge.economy.law"/>
+
+    <context:annotation-config/>
+
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+    <bean id="dtSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+
+        <!--LAWYERS.MIA.GE-->
+        <!-- <property name="url" value="jdbc:postgresql://localhost:5432/lawyers?currentSchema=public"/> -->
+        <property name="url" value="jdbc:postgresql://10.31.16.11:5432/lawyers?currentSchema=public"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="Ta5fW5y3LJ0dhmHd"/>
+    </bean>
+
+
+    <bean id="propertyPlaceholderConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+    </bean>
+
+    <bean id="transactionAwareDataSource"
+          class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+        <constructor-arg ref="dtSource"/>
+    </bean>
+
+    <bean class="org.jooq.impl.DataSourceConnectionProvider" name="connectionProvider">
+        <constructor-arg ref="transactionAwareDataSource"/>
+    </bean>
+
+    <bean id="dsl" class="org.jooq.impl.DefaultDSLContext">
+        <constructor-arg ref="config"/>
+    </bean>
+
+    <bean class="org.jooq.impl.DefaultConfiguration" name="config">
+        <property name="SQLDialect">
+            <value type="org.jooq.SQLDialect">POSTGRES</value>
+        </property>
+        <property name="connectionProvider" ref="connectionProvider"/>
+    </bean>
+
+    <!-- <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/logout"/>
+            <mvc:exclude-mapping path="/resources/**"/>
+            <mvc:exclude-mapping path="/upload/file-upload"/>
+            <bean class="ge.economy.law.security.auth.AuthInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors> -->
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean name="fileService" class="ge.economy.law.service.FileService">
+        <!--<property name="rootDir"-->
+        <!--value="C:\Program Files\Apache Software Foundation\Apache Tomcat 8.0.27\webapps\ROOT\uploads"/>-->
+        <!--<property name="rootDir" value="/usr/share/tomcat/webapps/domains/lawyers-test.economy.ge/uploads"/>-->
+        <property name="rootDir" value="/data"/>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="500000000"/>
+    </bean>
+    
+    <!-- <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider ref="keycloakAuthenticationProvider" />
+    </security:authentication-manager>
+    
+    <bean id="adapterDeploymentContext" class="org.keycloak.adapters.springsecurity.AdapterDeploymentContextFactoryBean">
+        <constructor-arg value="/WEB-INF/keycloak.json" />
+    </bean>
+    
+    <bean id="keycloakAuthenticationEntryPoint" class="org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationEntryPoint" />
+    <bean id="keycloakAuthenticationProvider" class="org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider" />
+    <bean id="keycloakPreAuthActionsFilter" class="org.keycloak.adapters.springsecurity.filter.KeycloakPreAuthActionsFilter" />
+    <bean id="keycloakAuthenticationProcessingFilter" class="org.keycloak.adapters.springsecurity.filter.KeycloakAuthenticationProcessingFilter">
+        <constructor-arg name="authenticationManager" ref="authenticationManager" />
+    </bean>
+	
+	<bean id="keycloakLogoutHandler" class="org.keycloak.adapters.springsecurity.authentication.KeycloakLogoutHandler">
+        <constructor-arg ref="adapterDeploymentContext" />
+    </bean> -->
+    
+    
+    <!-- <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+        <constructor-arg name="logoutSuccessUrl" value="/" />
+        <constructor-arg name="handlers">
+            <list>
+                <ref bean="keycloakLogoutHandler" />
+                <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+            </list>
+        </constructor-arg>
+        <property name="logoutRequestMatcher">
+            <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                <constructor-arg name="pattern" value="/sso/logout**" />
+                <constructor-arg name="httpMethod" value="GET" />
+            </bean>
+        </property>
+    </bean>
+    
+    <security:http auto-config="false" entry-point-ref="keycloakAuthenticationEntryPoint">
+        <security:custom-filter ref="keycloakPreAuthActionsFilter" before="LOGOUT_FILTER" />
+        <security:custom-filter ref="keycloakAuthenticationProcessingFilter" before="FORM_LOGIN_FILTER" />
+        <security:intercept-url pattern="/customers**" access="ROLE_USER" />
+        <security:intercept-url pattern="/admin**" access="ROLE_ADMIN" />
+        <security:custom-filter ref="logoutFilter" position="LOGOUT_FILTER" />
+    </security:http> -->
+    
+</beans>
