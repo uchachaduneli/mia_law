@@ -61,39 +61,63 @@
     });
 
   });
-  
 
-  var keycloak = Keycloak({
-            realm: 'icmia',
-            url: 'https://accounts.pol.ge/auth',
-            clientId: 'justice'
-        });
-        
-        keycloak.init({ onLoad: 'login-required' }).success(function(authenticated) {
-        	console.log(authenticated);
-        }).error(function() {
-            alert('failed to initialize');
-        });
 
-        keycloak.updateToken(5).success(function(refreshed) {
-        if (refreshed) {
-            console.log('Token was successfully refreshed');
-        } else {
-          console.log('Token is still valid');
-        }
-    }).error(function() {
-        console.log('Failed to refresh the token, or the session has expired');
-    });
-        
+  // var keycloak = Keycloak({
+  //           realm: 'icmia',
+  //           url: 'https://accounts.pol.ge/auth',
+  //           clientId: 'justice'
+  //       });
+  //
+  //       keycloak.init({ onLoad: 'login-required' }).success(function(authenticated) {
+  //       	console.log(authenticated);
+  //       }).error(function() {
+  //           alert('failed to initialize');
+  //       });
+  //
+  //       keycloak.updateToken(5).success(function(refreshed) {
+  //       if (refreshed) {
+  //           console.log('Token was successfully refreshed');
+  //       } else {
+  //         console.log('Token is still valid');
+  //       }
+  //   }).error(function() {
+  //       console.log('Failed to refresh the token, or the session has expired');
+  //   });
+
+  var keycloak = {};
+  keycloak.resourceAccess = {};
+  keycloak.resourceAccess['justice-service'] = {};
+  keycloak.resourceAccess['justice-service'].roles = ["JUSTICE_SIP_ADMIN", "JUSTICE_ADMIN", "JUSTICE_OPERATOR", "JUSTICE_SIP_OPERATOR"];
+
+  keycloak.idTokenParsed = {
+      acr: "1",
+      aud: "justice",
+      auth_time: 1553603458,
+      azp: "justice",
+      exp: 1553604658,
+      family_name: "ნაჭყებია",
+      given_name: "ალეკო",
+      iat: 1553603458,
+      iss: "https://accounts.pol.ge/auth/realms/icmia",
+      jti: "5b74457f-9562-4e50-bc4e-3bc9a89e9b5e",
+      name: "aleko nachyebia",
+      nbf: 0,
+      nonce: "8aa09bad-8a6f-44a3-819f-8c486b8b815d",
+      preferred_username: "nachyebiaa",
+      session_state: "b3be4d2e-25a2-424d-99ef-14ab80afd658",
+      sub: "f:0221ff4d-ecf3-4c15-9ab7-483b870a7df4:75809",
+      typ: "ID"};
+
 
   app.controller("angController", function ($scope, $http, $filter,$timeout) {
     $scope.start = 0;
     $scope.page = 0;
-    $scope.limit = "10";
+    $scope.limit = "15";
     $scope.request = {docs: []};
     $scope.srchCase = {};
 
-    
+
 //        $scope.request.docs = [];
 
     $scope.loadMainData = function () {
@@ -107,20 +131,20 @@
       if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
     	  setTimeout(function () {
         	  $scope.$apply(function(){
-        		  ajaxCallWithHeaders($http, "cases/get-cases?start=" + $scope.start + "&limit=" + $scope.limit, 
+        		  ajaxCallWithHeaders($http, "cases/get-cases?start=" + $scope.start + "&limit=" + $scope.limit,
                           angular.toJson($scope.srchCase), getMainData,null, keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
-        		  
+
         	  });
         	}, 1000);
       }else{
-    	  ajaxCallWithHeaders($http, "cases/get-cases?start=" + $scope.start + "&limit=" + $scope.limit, 
+    	  ajaxCallWithHeaders($http, "cases/get-cases?start=" + $scope.start + "&limit=" + $scope.limit,
                   angular.toJson($scope.srchCase), getMainData,null, keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
       }
-      
-        //ajaxCallWithHeaders($http, "cases/get-cases?start=" + $scope.start + "&limit=" + $scope.limit, 
+
+        //ajaxCallWithHeaders($http, "cases/get-cases?start=" + $scope.start + "&limit=" + $scope.limit,
           //                  angular.toJson($scope.srchCase), getMainData,null, keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles);
-      
-      
+
+
     }
 
     $scope.loadMainData();
@@ -128,18 +152,18 @@
     function getlitigationsubjects(res) {
       $scope.litigationsubjects = res.data;
     }
-    
+
     if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
     	  setTimeout(function () {
         	  $scope.$apply(function(){
         		  ajaxCallWithHeaders($http, "litigationsubjects/get-litigationsubjects", null, getlitigationsubjects,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
-        		  
+
         	  });
         	}, 1000);
       }else{
     	  ajaxCallWithHeaders($http, "litigationsubjects/get-litigationsubjects", null, getlitigationsubjects,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
       }
-    
+
 
     function getjudges(res) {
       $scope.judges = res.data;
@@ -149,7 +173,7 @@
     	  setTimeout(function () {
         	  $scope.$apply(function(){
         		  ajaxCallWithHeaders($http, "judges/get-judges", null, getjudges,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
-        		  
+
         	  });
         	}, 1000);
       }else{
@@ -164,55 +188,55 @@
     	  setTimeout(function () {
         	  $scope.$apply(function(){
         		  ajaxCallWithHeaders($http, "courtInstances/get-courtinstances", null, getcourtInstances,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
-        		  
+
         	  });
         	}, 1000);
       }else{
     	  ajaxCallWithHeaders($http, "courtInstances/get-courtinstances", null, getcourtInstances,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
       }
-    
+
 
     function getendresults(res) {
       $scope.endresults = res.data;
     }
-    
+
     if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
     	  setTimeout(function () {
         	  $scope.$apply(function(){
         		  ajaxCallWithHeaders($http, "endresults/get-endresults", null, getendresults,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
-        		  
+
         	  });
         	}, 1000);
       }else{
     	  ajaxCallWithHeaders($http, "endresults/get-endresults", null, getendresults,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
       }
-    
+
 
     function getcourts(res) {
       $scope.courts = res.data;
     }
-    
+
     if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
     	  setTimeout(function () {
         	  $scope.$apply(function(){
         		  ajaxCallWithHeaders($http, "courts/get-courts", null, getcourts,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
-        		  
+
         	  });
         	}, 1000);
       }else{
     	  ajaxCallWithHeaders($http, "courts/get-courts", null, getcourts,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
       }
-    
+
 
     function getstatuses(res) {
       $scope.statuses = res.data;
     }
-    
+
     if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
     	  setTimeout(function () {
         	  $scope.$apply(function(){
         		  ajaxCall($http, "cases/get-status", null, getstatuses,keycloak.idTokenParsed.name);
-        		  
+
         	  });
         	}, 1000);
       }else{
@@ -222,12 +246,12 @@
     function getUsers(res) {
       $scope.users = res.data;
     }
-    
+
     if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
     	  setTimeout(function () {
         	  $scope.$apply(function(){
         		  ajaxCallWithHeaders($http, "users/get-users", null, getUsers,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
-        		  
+
         	  });
         	}, 1000);
       }else{
@@ -237,18 +261,18 @@
     function getBoards(res) {
       $scope.boards = res.data;
     }
-    
+
     if(keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined){
     	  setTimeout(function () {
         	  $scope.$apply(function(){
         		  ajaxCallWithHeaders($http, "boards/get-boards", null, getBoards,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
-        		  
+
         	  });
         	}, 1000);
       }else{
     	  ajaxCallWithHeaders($http, "boards/get-boards", null, getBoards,null,keycloak.idTokenParsed.preferred_username,keycloak.resourceAccess['justice-service'].roles,keycloak.idTokenParsed.name);
       }
-    
+
 
     $scope.remove = function (id) {
       if (confirm("დარწმუნებული ხართ რომ გსურთ წაშლა?")) {
@@ -308,13 +332,13 @@
       }
     };
 
-    
+
 
     $scope.init = function () {
       $scope.request = {docs: []};
       $('#uploadDocNameInput').val();
     };
-    
+
 
 $scope.reAssign = function () {
 
@@ -766,7 +790,7 @@ ajaxCallWithHeaders($http, "cases/save-case", angular.toJson($scope.request), re
       <div class="modal-body">
         <div class="row">
           <form class="form-horizontal" name="ReAssignForm">
-            
+
             <div class="form-group col-sm-10 ">
               <label class="control-label col-sm-3">თანამშრომელი რომელსაც ეწერება (*)</label>
               <div class="col-sm-9">

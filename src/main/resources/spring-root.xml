@@ -3,7 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:security="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd
        http://www.springframework.org/schema/beans
@@ -23,8 +22,8 @@
         <property name="driverClassName" value="org.postgresql.Driver"/>
 
         <!--LAWYERS.MIA.GE-->
-        <!-- <property name="url" value="jdbc:postgresql://localhost:5432/lawyers?currentSchema=public"/> -->
-        <property name="url" value="jdbc:postgresql://10.31.16.11:5432/lawyers?currentSchema=public"/>
+         <property name="url" value="jdbc:postgresql://localhost:5432/lawyers?currentSchema=public"/>
+        <!--<property name="url" value="jdbc:postgresql://10.31.16.11:5432/lawyers?currentSchema=public"/>-->
         <property name="username" value="postgres"/>
         <property name="password" value="Ta5fW5y3LJ0dhmHd"/>
     </bean>
