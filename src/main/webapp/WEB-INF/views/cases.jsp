@@ -394,6 +394,9 @@
             if ($scope.request.caseEndDate != undefined && $scope.request.caseEndDate.includes('/')) {
                 $scope.request.caseEndDate = $scope.request.caseEndDate.split(/\//).reverse().join('-')
             }
+            if ($scope.request.expireDate != undefined && $scope.request.expireDate.includes('/')) {
+                $scope.request.expireDate = $scope.request.expireDate.split(/\//).reverse().join('-')
+            }
             ajaxCallWithHeaders($http, "cases/save-case", angular.toJson($scope.request), resFunc, null, keycloak.idTokenParsed.preferred_username, keycloak.resourceAccess['justice-service'].roles, keycloak.idTokenParsed.name);
         };
 
@@ -545,6 +548,10 @@
                         <tr>
                             <th class="text-right">საქმის სტატუსი</th>
                             <td>{{slcted.statusName}}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right">ალერტის თარიღი</th>
+                            <td>{{slcted.expireDate}}</td>
                         </tr>
                         <tr>
                             <th class="text-right">დოკუმენტები</th>
@@ -735,6 +742,18 @@
                                             value="{{v.statusId}}">{{v.name}}
                                     </option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-10 ">
+                            <label class="control-label col-sm-3">ალერტის თარიღი</label>
+                            <div class="col-sm-9">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" name="enddate" ng-model="request.expireDate"
+                                           class="form-control pull-right">
+                                </div>
                             </div>
                         </div>
                         <div class="form-group col-sm-10 ">
@@ -1038,7 +1057,7 @@
                         </thead>
                         <tbody title="დეტალური ინფორმაციისთვის დაკლიკეთ ორჯერ">
                         <tr ng-repeat="r in list" ng-dblclick="handleDoubleClick(r.caseId)">
-                            <td>{{r.caseId}}</td>
+                            <td title="Expire Date {{r.expireDate}}" style="background-color: {{(r.alert ? '#c4e3f3 !important;':'')}}">{{r.caseId}}</td>
                             <td>{{r.name}}</td>
                             <td>{{r.number}}</td>
                             <td>{{r.courtName}}</td>

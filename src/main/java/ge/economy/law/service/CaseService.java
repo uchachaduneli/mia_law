@@ -38,8 +38,7 @@ public class CaseService {
 	private DSLContext dslContext;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public HashMap<String, Object> getCases(int start, int limit, SearchCaseRequest srchCase, String userRoles,
-			String username) {
+	public HashMap<String, Object> getCases(int start, int limit, SearchCaseRequest srchCase, String userRoles, String username) {
 
 		HashMap<String, Object> resultMap = new HashMap<>();
 		HashMap<String, Object> map = caseDAO.getCases(start, limit, srchCase, userRoles);
@@ -74,9 +73,8 @@ public class CaseService {
 			record.setGroupId(new SimpleDateFormat("yyMMddhhmmssMs").format(new java.util.Date()));
 		}
 
-		if (!newRecord && request.getCourtInstanceId() != record.getCourtInstanceId()) {// Ã¡Æ’ËœÃ¡Æ’Å“Ã¡Æ’Â¡Ã¡Æ’Â¢Ã¡Æ’ï¿½Ã¡Æ’Å“Ã¡Æ’ÂªÃ¡Æ’ËœÃ¡Æ’ËœÃ¡Æ’Â¡
-																						// Ã¡Æ’ËœÃ¡Æ’Â¡Ã¡Æ’Â¢Ã¡Æ’ï¿½Ã¡Æ’Â Ã¡Æ’ËœÃ¡Æ’ï¿½Ã¡Æ’Â¨Ã¡Æ’Ëœ
-																						// Ã¡Æ’â€™Ã¡Æ’ï¿½Ã¡Æ’â€œÃ¡Æ’ï¿½Ã¡Æ’Â§Ã¡Æ’Â Ã¡Æ’ï¿½
+		if (!newRecord && request.getCourtInstanceId() != record
+				.getCourtInstanceId()) {
 			newInstanceHidtoryRecord = true;
 			record = dslContext.newRecord(Tables.CASE);
 		}
@@ -92,6 +90,11 @@ public class CaseService {
 		if (request.getCaseEndDate() != null) {
 			record.setCaseEndDate(new Date(request.getCaseEndDate().getTime()));
 		}
+		if (request.getExpireDate() != null) {
+			record.setExpireDate(new Date(request.getExpireDate().getTime()));
+		}else{
+			record.setExpireDate(null);
+		}
 		record.setLitigationSubjectId(request.getLitigationSubjectId());
 		record.setLitigationDescription(request.getLitigationDescription());
 		record.setEndResultId(request.getEndResultId());
@@ -103,17 +106,7 @@ public class CaseService {
 		record.setThirdPersons(request.getThirdPersons());
 		record.setCourtInstanceId(request.getCourtInstanceId());
 
-		if (newRecord || newInstanceHidtoryRecord) {// Ã¡Æ’â€”Ã¡Æ’Â£ Ã¡Æ’ï¿½Ã¡Æ’Â®Ã¡Æ’ï¿½Ã¡Æ’Å¡
-													// Ã¡Æ’ËœÃ¡Æ’Å“Ã¡Æ’Â¡Ã¡Æ’Â¢Ã¡Æ’ï¿½Ã¡Æ’Å“Ã¡Æ’ÂªÃ¡Æ’ËœÃ¡Æ’ï¿½Ã¡Æ’â€“Ã¡Æ’â€�
-													// Ã¡Æ’â€™Ã¡Æ’ï¿½Ã¡Æ’â€œÃ¡Æ’ï¿½Ã¡Æ’â€¢Ã¡Æ’ËœÃ¡Æ’â€œÃ¡Æ’ï¿½
-													// Ã¡Æ’ï¿½Ã¡Æ’Â®Ã¡Æ’ï¿½Ã¡Æ’Å¡Ã¡Æ’Ëœ
-													// Ã¡Æ’Â©Ã¡Æ’ï¿½Ã¡Æ’Å“Ã¡Æ’ï¿½Ã¡Æ’Â¬Ã¡Æ’â€�Ã¡Æ’Â Ã¡Æ’Ëœ
-													// Ã¡Æ’â„¢Ã¡Æ’â€�Ã¡Æ’â€”Ã¡Æ’â€œÃ¡Æ’â€�Ã¡Æ’â€˜Ã¡Æ’ï¿½
-													// Ã¡Æ’ÂªÃ¡Æ’Â®Ã¡Æ’Â Ã¡Æ’ËœÃ¡Æ’Å¡Ã¡Æ’Â¨Ã¡Æ’Ëœ
-													// Ã¡Æ’â€œÃ¡Æ’ï¿½Ã¡Æ’Â¢Ã¡Æ’ï¿½Ã¡Æ’Âª
-													// Ã¡Æ’â€ºÃ¡Æ’ËœÃ¡Æ’Â§Ã¡Æ’â€¢Ã¡Æ’â€�Ã¡Æ’â€˜Ã¡Æ’ï¿½
-													// Ã¡Æ’Â¨Ã¡Æ’â€�Ã¡Æ’ËœÃ¡Æ’Â«Ã¡Æ’Å¡Ã¡Æ’â€�Ã¡Æ’â€˜Ã¡Æ’ï¿½
-													// Ã¡Æ’Â¨Ã¡Æ’â€�Ã¡Æ’ÂªÃ¡Æ’â€¢Ã¡Æ’Å¡Ã¡Æ’ËœÃ¡Æ’Å¡Ã¡Æ’Ëœ
+		if (newRecord || newInstanceHidtoryRecord) {
 			try {
 				record.store();
 			} catch (RuntimeException ex) {

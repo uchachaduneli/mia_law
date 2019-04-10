@@ -99,19 +99,12 @@ public class CaseDAO extends AbstractDAO {
 				.on(c.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID)).leftJoin(Tables.END_RESULT)
 				.on(c.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID)).leftJoin(Tables.COURT).on(c.COURT_ID.eq(Tables.COURT.COURT_ID))
 				.leftJoin(Tables.JUDGE).on(c.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID)).leftJoin(Tables.STATUS)
-				.on(c.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).leftJoin(Tables.USER).on(c.ADD_USER_ID.eq(Tables.USER.USER_ID))/*.leftJoin
-				(Tables.USER_TYPE)
-				.on(Tables.USER.TYPE_ID.eq(Tables.USER_TYPE.TYPE_ID))*/.where(DSL.and(condition));
+				.on(c.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).leftJoin(Tables.USER).on(c.ADD_USER_ID.eq(Tables.USER.USER_ID)).where(DSL.and(condition));
 
 		SelectConditionStep<Record> selectConditionStepSize = selectConditionStep;
 		int recordSize = selectConditionStepSize.fetch().size();
-		/*
-		 * if (srchCase.isOrderByUser()) {
-		 * selectConditionStep.orderBy(c.ADD_USER_ID.asc(), c.CASE_ID.desc()); } else {
-		 * selectConditionStep.orderBy(c.CASE_ID.desc()); }
-		 */
 
-		selectConditionStep.limit(limit).offset(start);
+		selectConditionStep.orderBy(c.EXPIRE_DATE.desc().nullsLast(), c.CASE_ID.desc()).limit(limit).offset(start);
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("list", selectConditionStep.fetch());
