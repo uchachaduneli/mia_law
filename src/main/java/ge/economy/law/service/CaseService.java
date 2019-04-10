@@ -6,6 +6,7 @@ import ge.economy.law.dto.CaseDTO;
 import ge.economy.law.dto.CaseDocDTO;
 import ge.economy.law.dto.StatusDTO;
 import ge.economy.law.dto.UserReportDTO;
+import ge.economy.law.misc.CustomException;
 import ge.economy.law.model.Tables;
 import ge.economy.law.model.tables.records.CaseDocRecord;
 import ge.economy.law.model.tables.records.CaseRecord;
@@ -143,8 +144,8 @@ public class CaseService {
 		return StatusDTO.translateArray(caseDAO.getCaseStatuses());
 	}
 
-	public void deleteCase(int id, String userName) {
-		caseDAO.deleteCase(id, userName);
+	public int deleteCase(int id) throws CustomException {
+		return caseDAO.deleteCase(id);
 	}
 
 	public List<CaseDTO> getInstanceHistory(int id, String number) {

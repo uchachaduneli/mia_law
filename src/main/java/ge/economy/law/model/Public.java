@@ -3,29 +3,15 @@
  */
 package ge.economy.law.model;
 
-
-import ge.economy.law.model.tables.Board;
-import ge.economy.law.model.tables.Case;
-import ge.economy.law.model.tables.CaseDoc;
-import ge.economy.law.model.tables.Court;
-import ge.economy.law.model.tables.CourtInstance;
-import ge.economy.law.model.tables.EndResult;
-import ge.economy.law.model.tables.Judge;
-import ge.economy.law.model.tables.LitigationSubject;
-import ge.economy.law.model.tables.Status;
-import ge.economy.law.model.tables.User;
-import ge.economy.law.model.tables.UserStatus;
-import ge.economy.law.model.tables.UserType;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Generated;
-
+import ge.economy.law.model.tables.*;
 import org.jooq.Sequence;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
+
+import javax.annotation.Generated;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**

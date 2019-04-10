@@ -1,5 +1,6 @@
 package ge.economy.law.dao;
 
+import ge.economy.law.misc.CustomException;
 import ge.economy.law.model.Tables;
 import ge.economy.law.model.tables.Case;
 import ge.economy.law.model.tables.records.CaseRecord;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class CaseDAO extends AbstractDAO {
 				}
 			}
 		}*/
-		condition.add(dslContext.select( val(userRoles) ).fetchOne().field1().contains(Tables.USER.ROLE.cast(String.class)));
+		condition.add(dslContext.select(val(userRoles)).fetchOne().field1().contains(Tables.USER.ROLE.cast(String.class)));
 		if (srchCase.getName() != null) {
 			condition.add(c.NAME.like("%" + srchCase.getName() + "%"));
 		}
@@ -91,18 +91,16 @@ public class CaseDAO extends AbstractDAO {
 		if (srchCase.getCourtInstanceId() != null && srchCase.getCourtInstanceId() > 0) {
 			condition.add(c.COURT_INSTANCE_ID.eq(srchCase.getCourtInstanceId()));
 		} else {
-			condition.add(c.CASE_ID.eq(dslContext.select(max(Tables.CASE.CASE_ID)).from(Tables.CASE)
-					.where(Tables.CASE.GROUP_ID.eq(c.GROUP_ID))));
+			condition.add(c.CASE_ID
+					.eq(dslContext.select(max(Tables.CASE.CASE_ID)).from(Tables.CASE).where(Tables.CASE.GROUP_ID.eq(c.GROUP_ID))));
 		}
 
-		SelectConditionStep<Record> selectConditionStep = dslContext.select().from(c)
-				.leftJoin(Tables.LITIGATION_SUBJECT)
-				.on(c.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID))
-				.leftJoin(Tables.END_RESULT).on(c.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID))
-				.leftJoin(Tables.COURT).on(c.COURT_ID.eq(Tables.COURT.COURT_ID)).leftJoin(Tables.JUDGE)
-				.on(c.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID)).leftJoin(Tables.STATUS)
-				.on(c.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).leftJoin(Tables.USER)
-				.on(c.ADD_USER_ID.eq(Tables.USER.USER_ID))/*.leftJoin(Tables.USER_TYPE)
+		SelectConditionStep<Record> selectConditionStep = dslContext.select().from(c).leftJoin(Tables.LITIGATION_SUBJECT)
+				.on(c.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID)).leftJoin(Tables.END_RESULT)
+				.on(c.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID)).leftJoin(Tables.COURT).on(c.COURT_ID.eq(Tables.COURT.COURT_ID))
+				.leftJoin(Tables.JUDGE).on(c.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID)).leftJoin(Tables.STATUS)
+				.on(c.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).leftJoin(Tables.USER).on(c.ADD_USER_ID.eq(Tables.USER.USER_ID))/*.leftJoin
+				(Tables.USER_TYPE)
 				.on(Tables.USER.TYPE_ID.eq(Tables.USER_TYPE.TYPE_ID))*/.where(DSL.and(condition));
 
 		SelectConditionStep<Record> selectConditionStepSize = selectConditionStep;
@@ -123,15 +121,14 @@ public class CaseDAO extends AbstractDAO {
 
 	public List<Record> getInstanceHistory(int itemId, String number) {
 		return dslContext.select().from(Tables.CASE).join(Tables.LITIGATION_SUBJECT)
-				.on(Tables.CASE.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID))
-				.join(Tables.END_RESULT).on(Tables.CASE.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID))
-				.join(Tables.COURT).on(Tables.CASE.COURT_ID.eq(Tables.COURT.COURT_ID)).join(Tables.USER)
-				.on(Tables.CASE.ADD_USER_ID.eq(Tables.USER.USER_ID)).join(Tables.JUDGE)
-				.on(Tables.CASE.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID)).join(Tables.STATUS)
+				.on(Tables.CASE.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID)).join(Tables.END_RESULT)
+				.on(Tables.CASE.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID)).join(Tables.COURT)
+				.on(Tables.CASE.COURT_ID.eq(Tables.COURT.COURT_ID)).join(Tables.USER).on(Tables.CASE.ADD_USER_ID.eq(Tables.USER.USER_ID))
+				.join(Tables.JUDGE).on(Tables.CASE.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID)).join(Tables.STATUS)
 				.on(Tables.CASE.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).join(Tables.COURT_INSTANCE)
-				.on(Tables.CASE.COURT_INSTANCE_ID.eq(Tables.COURT_INSTANCE.INSTANCE_ID))
-				.where(Tables.CASE.GROUP_ID.eq(number)).orderBy(Tables.CASE.CASE_ID.asc())
-//                .and(Tables.CASE.CASE_ID.ne(itemId))
+				.on(Tables.CASE.COURT_INSTANCE_ID.eq(Tables.COURT_INSTANCE.INSTANCE_ID)).where(Tables.CASE.GROUP_ID.eq(number))
+				.orderBy(Tables.CASE.CASE_ID.asc())
+				//                .and(Tables.CASE.CASE_ID.ne(itemId))
 				.fetch();
 	}
 
@@ -139,12 +136,17 @@ public class CaseDAO extends AbstractDAO {
 		return dslContext.select().from(Tables.STATUS).fetch();
 	}
 
-	public void deleteCase(int itemId, String userName) {
-		dslContext.deleteFrom(Tables.CASE)
-				.where(Tables.CASE.CASE_ID.eq(itemId)
-						.and(Tables.CASE.ADD_USER_ID.in(dslContext.select().from(Tables.USER)
-								.where(Tables.USER.USERNAME.eq(userName)).fetchOne().getValue(Tables.USER.USER_ID))))
-				.execute();
+	public int deleteCase(int itemId) throws CustomException {
+		CaseRecord cs = dslContext.fetchOne(Tables.CASE, Tables.CASE.CASE_ID.eq(itemId));
+		if (cs == null) {
+			throw new CustomException("ჩანაწერი ვერ მოინიშნა !!!");
+		}
+		return dslContext.executeDelete(cs);
+
+		//From(Tables.CASE).where(Tables.CASE.CASE_ID.eq(itemId)).execute();
+		//						.and(Tables.CASE.ADD_USER_ID.in(dslContext.select().from(Tables.USER)
+		//								.where(Tables.USER.USERNAME.eq(userName)).fetchOne().getValue(Tables.USER.USER_ID))))
+		//				.execute();
 	}
 
 	public CaseRecord getCaseObjectById(int id) {
@@ -153,13 +155,11 @@ public class CaseDAO extends AbstractDAO {
 
 	public Record getWholeCaseObjectById(int id) {
 
-		return dslContext.select().from(Tables.CASE).join(Tables.JUDGE)
-				.on(Tables.CASE.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID)).join(Tables.LITIGATION_SUBJECT)
-				.on(Tables.CASE.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID))
-				.join(Tables.END_RESULT).on(Tables.CASE.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID))
-				.join(Tables.COURT).on(Tables.CASE.COURT_ID.eq(Tables.COURT.COURT_ID)).join(Tables.USER)
-				.on(Tables.CASE.ADD_USER_ID.eq(Tables.USER.USER_ID)).join(Tables.STATUS)
-				.on(Tables.CASE.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).where(Tables.CASE.CASE_ID.eq(id)).fetchOne();
+		return dslContext.select().from(Tables.CASE).join(Tables.JUDGE).on(Tables.CASE.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID))
+				.join(Tables.LITIGATION_SUBJECT).on(Tables.CASE.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID))
+				.join(Tables.END_RESULT).on(Tables.CASE.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID)).join(Tables.COURT)
+				.on(Tables.CASE.COURT_ID.eq(Tables.COURT.COURT_ID)).join(Tables.USER).on(Tables.CASE.ADD_USER_ID.eq(Tables.USER.USER_ID))
+				.join(Tables.STATUS).on(Tables.CASE.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).where(Tables.CASE.CASE_ID.eq(id)).fetchOne();
 	}
 
 	public HashMap<String, Object> getReport(SearchCaseRequest srchCase, String userRoles) {
@@ -188,7 +188,7 @@ public class CaseDAO extends AbstractDAO {
 				}
 			}
 		}*/
-		condition.add(dslContext.select( val(userRoles) ).fetchOne().field1().contains(Tables.USER.ROLE.cast(String.class)));
+		condition.add(dslContext.select(val(userRoles)).fetchOne().field1().contains(Tables.USER.ROLE.cast(String.class)));
 		if (srchCase.getJudgeId() != null && srchCase.getJudgeId() > 0) {
 			condition.add(c.JUDGE_ID.eq(srchCase.getJudgeId()));
 		}
@@ -231,26 +231,22 @@ public class CaseDAO extends AbstractDAO {
 			condition.add(c.COURT_INSTANCE_ID.eq(srchCase.getCourtInstanceId()));
 		}
 
-		SelectConditionStep<Record2<String, Integer>> selectConditionStep = dslContext.select(Tables.USER.NAME, count())
-				.from(c).join(Tables.LITIGATION_SUBJECT)
-				.on(c.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID)).join(Tables.END_RESULT)
-				.on(c.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID)).join(Tables.COURT)
-				.on(c.COURT_ID.eq(Tables.COURT.COURT_ID)).leftJoin(Tables.USER)
-				.on(c.ADD_USER_ID.eq(Tables.USER.USER_ID))/*.leftJoin(Tables.USER_TYPE)
-				.on(Tables.USER.TYPE_ID.eq(Tables.USER_TYPE.TYPE_ID))*/.join(Tables.JUDGE)
-				.on(c.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID)).join(Tables.STATUS)
-				.on(c.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).where(DSL.and(condition));
+		SelectConditionStep<Record2<String, Integer>> selectConditionStep = dslContext.select(Tables.USER.NAME, count()).from(c)
+				.join(Tables.LITIGATION_SUBJECT).on(c.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID))
+				.join(Tables.END_RESULT).on(c.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID)).join(Tables.COURT)
+				.on(c.COURT_ID.eq(Tables.COURT.COURT_ID)).leftJoin(Tables.USER).on(c.ADD_USER_ID.eq(Tables.USER.USER_ID))/*.leftJoin
+				(Tables.USER_TYPE)
+				.on(Tables.USER.TYPE_ID.eq(Tables.USER_TYPE.TYPE_ID))*/.join(Tables.JUDGE).on(c.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID))
+				.join(Tables.STATUS).on(c.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).where(DSL.and(condition));
 		selectConditionStep.groupBy(c.ADD_USER_ID, Tables.USER.NAME);
 
 		SelectConditionStep<Record1<BigDecimal>> sumCondition = dslContext.select(sum(c.LITIGATION_PRICE)).from(c)
-				.join(Tables.LITIGATION_SUBJECT)
-				.on(c.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID)).join(Tables.END_RESULT)
-				.on(c.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID)).join(Tables.COURT)
-				.on(c.COURT_ID.eq(Tables.COURT.COURT_ID)).leftJoin(Tables.USER)
-				.on(c.ADD_USER_ID.eq(Tables.USER.USER_ID))/*.leftJoin(Tables.USER_TYPE)
-				.on(Tables.USER.TYPE_ID.eq(Tables.USER_TYPE.TYPE_ID))*/.join(Tables.JUDGE)
-				.on(c.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID)).join(Tables.STATUS)
-				.on(c.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).where(DSL.and(condition));
+				.join(Tables.LITIGATION_SUBJECT).on(c.LITIGATION_SUBJECT_ID.eq(Tables.LITIGATION_SUBJECT.LITIGATION_SUBJECT_ID))
+				.join(Tables.END_RESULT).on(c.END_RESULT_ID.eq(Tables.END_RESULT.END_RESULT_ID)).join(Tables.COURT)
+				.on(c.COURT_ID.eq(Tables.COURT.COURT_ID)).leftJoin(Tables.USER).on(c.ADD_USER_ID.eq(Tables.USER.USER_ID))/*.leftJoin
+				(Tables.USER_TYPE)
+				.on(Tables.USER.TYPE_ID.eq(Tables.USER_TYPE.TYPE_ID))*/.join(Tables.JUDGE).on(c.JUDGE_ID.eq(Tables.JUDGE.JUDGE_ID))
+				.join(Tables.STATUS).on(c.STATUS_ID.eq(Tables.STATUS.STATUS_ID)).where(DSL.and(condition));
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("list", selectConditionStep.fetch());

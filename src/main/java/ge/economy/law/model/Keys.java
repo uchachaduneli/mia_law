@@ -3,38 +3,14 @@
  */
 package ge.economy.law.model;
 
-
-import ge.economy.law.model.tables.Board;
-import ge.economy.law.model.tables.Case;
-import ge.economy.law.model.tables.CaseDoc;
-import ge.economy.law.model.tables.Court;
-import ge.economy.law.model.tables.CourtInstance;
-import ge.economy.law.model.tables.EndResult;
-import ge.economy.law.model.tables.Judge;
-import ge.economy.law.model.tables.LitigationSubject;
-import ge.economy.law.model.tables.Status;
-import ge.economy.law.model.tables.User;
-import ge.economy.law.model.tables.UserStatus;
-import ge.economy.law.model.tables.UserType;
-import ge.economy.law.model.tables.records.BoardRecord;
-import ge.economy.law.model.tables.records.CaseDocRecord;
-import ge.economy.law.model.tables.records.CaseRecord;
-import ge.economy.law.model.tables.records.CourtInstanceRecord;
-import ge.economy.law.model.tables.records.CourtRecord;
-import ge.economy.law.model.tables.records.EndResultRecord;
-import ge.economy.law.model.tables.records.JudgeRecord;
-import ge.economy.law.model.tables.records.LitigationSubjectRecord;
-import ge.economy.law.model.tables.records.StatusRecord;
-import ge.economy.law.model.tables.records.UserRecord;
-import ge.economy.law.model.tables.records.UserStatusRecord;
-import ge.economy.law.model.tables.records.UserTypeRecord;
-
-import javax.annotation.Generated;
-
+import ge.economy.law.model.tables.*;
+import ge.economy.law.model.tables.records.*;
 import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
+
+import javax.annotation.Generated;
 
 
 /**

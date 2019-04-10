@@ -7,25 +7,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="665e9aab-6e65-4efe-aa25-476861e2e37c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/ge_economy_law_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/ge_economy_law_war_exploded.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_22.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/misc/CustomException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.component" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.project.facet.core.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ge.economy.law.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/spring-root.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-root.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/cases.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/cases.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/controller/CaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/controller/CaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/dao/CaseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/dao/CaseDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/generator/generator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/generator/generator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/Keys.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/Keys.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/Public.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/Public.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/Sequences.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/Sequences.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/Tables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/Tables.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/CaseDoc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/CaseDoc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Court.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Court.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/CourtInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/CourtInstance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/EndResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/EndResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Judge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Judge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/LitigationSubject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/LitigationSubject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/UserStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/UserStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/UserType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/UserType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/BoardRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/BoardRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/CaseDocRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/CaseDocRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/CaseRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/CaseRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/CourtInstanceRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/CourtInstanceRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/CourtRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/CourtRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/EndResultRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/EndResultRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/JudgeRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/JudgeRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/LitigationSubjectRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/LitigationSubjectRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/StatusRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/StatusRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/UserRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/UserRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/UserStatusRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/UserStatusRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/UserTypeRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/records/UserTypeRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ge/economy/law/service/CaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ge/economy/law/service/CaseService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/spring-root.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/spring-root.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,12 +50,21 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/cases.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="89" column="50" lean-forward="true" selection-start-line="89" selection-start-column="50" selection-end-line="89" selection-end-column="50" />
+            <state relative-caret-position="380">
+              <caret line="1056" column="59" lean-forward="true" selection-start-line="1056" selection-start-column="59" selection-end-line="1056" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/spring-root.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="68" selection-start-line="5" selection-start-column="68" selection-end-line="5" selection-end-column="68" />
             </state>
           </provider>
         </entry>
@@ -48,18 +72,83 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/controller/CaseController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="49" selection-start-line="49" selection-end-line="49" />
+            <state relative-caret-position="359">
+              <caret line="103" column="20" lean-forward="true" selection-start-line="103" selection-start-column="20" selection-end-line="103" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/dto/UserDTO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="26" column="35" lean-forward="true" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Case.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/service/CaseService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="146" column="32" selection-start-line="146" selection-start-column="32" selection-end-line="146" selection-end-column="32" />
+              <folding>
+                <element signature="e#978#1024#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/dto/CaseDTO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="413">
+              <caret line="97" column="71" lean-forward="true" selection-start-line="97" selection-start-column="71" selection-end-line="97" selection-end-column="71" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/dao/CaseDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="283">
+              <caret line="139" column="52" selection-start-line="139" selection-start-column="52" selection-end-line="139" selection-end-column="52" />
+              <folding>
+                <element signature="e#6983#6984#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>limit</find>
+      <find>სამინისტროს</find>
+      <find>delete-case</find>
+      <find>ownsUser</find>
+      <find>one</find>
     </findStrings>
+    <dirStrings>
+      <dir>C:\Users\ucha.chaduneli\IdeaProjects\mia_law</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -67,7 +156,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/statistics.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Case.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/cases.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/ge/economy/law/misc/CustomException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ge/economy/law/dao/CaseDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ge/economy/law/controller/CaseController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ge/economy/law/service/CaseService.java" />
       </list>
     </option>
   </component>
@@ -86,9 +181,12 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="481" />
-    <option name="y" value="-8" />
+    <option name="x" value="-1928" />
+    <option name="y" value="3" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -98,6 +196,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -145,6 +244,41 @@
               <item name="mia_law" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="law" type="462c0819:PsiDirectoryNode" />
+              <item name="misc" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="law" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mia_law" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="law" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="law" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mia_law" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="law" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="tables" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="law" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mia_law" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="law" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mia_law" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -168,14 +302,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553611397990" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554899163137" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -279,80 +412,121 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1553606314483</updated>
-      <workItem from="1553606315915" duration="4525000" />
+      <workItem from="1553606315915" duration="4567000" />
+      <workItem from="1553673780688" duration="675000" />
+      <workItem from="1553680494067" duration="22000" />
+      <workItem from="1554383218566" duration="5027000" />
+      <workItem from="1554447135994" duration="598000" />
+      <workItem from="1554472536194" duration="901000" />
+      <workItem from="1554474249537" duration="874000" />
+      <workItem from="1554881632813" duration="8484000" />
     </task>
+    <task id="LOCAL-00001" summary="ასდ">
+      <created>1553612526163</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1553612526163</updated>
+    </task>
+    <task id="LOCAL-00002" summary="ასდ">
+      <created>1554390296288</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1554390296288</updated>
+    </task>
+    <task id="LOCAL-00003" summary="ასდ">
+      <created>1554390348848</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1554390348848</updated>
+    </task>
+    <task id="LOCAL-00004" summary="ასდ">
+      <created>1554474523401</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1554474523401</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4525000" />
+    <option name="totallyTimeSpent" value="21148000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-1928" y="3" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Designer" />
-      <window_info id="Image Layers" />
-      <window_info id="Capture Tool" />
-      <window_info id="UI Designer" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info id="Web" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26865673" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Application Servers" weight="0.32936078" />
-      <window_info anchor="bottom" id="Spring" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" weight="0.32936078" />
-      <window_info anchor="bottom" id="Java Enterprise" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
       <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="JSF" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="CDI" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Bean Validation" />
+      <window_info anchor="bottom" id="Application Servers" order="7" weight="0.32936078" />
+      <window_info anchor="bottom" id="Spring" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32936078" />
+      <window_info anchor="bottom" id="Java Enterprise" order="13" />
+      <window_info anchor="bottom" id="Database Changes" order="14" />
+      <window_info anchor="bottom" id="Version Control" order="15" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="JSF" order="5" weight="0.32995737" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="CDI" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info anchor="right" id="Theme Preview" order="10" />
+      <window_info anchor="right" id="Bean Validation" order="11" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <MESSAGE value="ასდ" />
+    <option name="LAST_COMMIT_MESSAGE" value="ასდ" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/ge/economy/law/controller/CaseController.java</url>
-          <line>50</line>
-          <properties />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/ge/economy/law/controller/CaseController.java</url>
-          <line>43</line>
-          <properties class="ge.economy.law.controller.CaseController" method="getCases">
+          <url>file://$PROJECT_DIR$/src/main/java/ge/economy/law/dao/CaseDAO.java</url>
+          <line>139</line>
+          <properties class="ge.economy.law.dao.CaseDAO" method="deleteCase">
             <option name="EMULATED" value="true" />
           </properties>
-          <option name="timeStamp" value="7" />
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>selectConditionStep.fetch()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>caseService.getCases(start, limit, srchCase, buildRoles/*.split(&quot;,&quot;)*/, username)</expression-string>
         <language-id>JAVA</language-id>
@@ -361,24 +535,138 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/cases.jsp">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.2.5.RELEASE/spring-webmvc-4.2.5.RELEASE.jar!/org/springframework/web/servlet/FrameworkServlet.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="89" column="50" lean-forward="true" selection-start-line="89" selection-start-column="50" selection-end-line="89" selection-end-column="50" />
+        <state relative-caret-position="192">
+          <caret line="479" selection-start-line="479" selection-end-line="479" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.2.5.RELEASE/spring-webmvc-4.2.5.RELEASE.jar!/org/springframework/web/servlet/DispatcherServlet.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="404" selection-start-line="404" selection-end-line="404" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.2.5.RELEASE/spring-web-4.2.5.RELEASE.jar!/org/springframework/web/method/support/InvocableHandlerMethod.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="146" column="74" selection-start-line="146" selection-start-column="74" selection-end-line="146" selection-end-column="74" />
+        <state relative-caret-position="209">
+          <caret line="140" selection-start-line="140" selection-end-line="140" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/statistics.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="44" column="7" selection-start-line="44" selection-start-column="7" selection-end-line="44" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring-root.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="68" selection-start-line="5" selection-start-column="68" selection-end-line="5" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/Case.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jooq/jooq/3.7.3/jooq-3.7.3.jar!/org/jooq/Query.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/model/tables/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-109">
+          <caret line="41" column="29" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/model/Tables.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="83" column="71" lean-forward="true" selection-start-line="83" selection-start-column="71" selection-end-line="83" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/dto/UserDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="26" column="35" lean-forward="true" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/misc/CustomException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#105#106#0" expanded="true" />
+            <element signature="e#119#120#0" expanded="true" />
+            <element signature="e#162#163#0" expanded="true" />
+            <element signature="e#183#184#0" expanded="true" />
+            <element signature="e#243#244#0" expanded="true" />
+            <element signature="e#271#272#0" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
+            <element signature="e#334#335#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jooq/jooq/3.7.3/jooq-3.7.3.jar!/org/jooq/DSLContext.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="1087" column="25" selection-start-line="1087" selection-start-column="25" selection-end-line="1087" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/dto/CaseDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="97" column="71" lean-forward="true" selection-start-line="97" selection-start-column="71" selection-end-line="97" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/cases.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="1056" column="59" lean-forward="true" selection-start-line="1056" selection-start-column="59" selection-end-line="1056" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/dao/CaseDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="139" column="52" selection-start-line="139" selection-start-column="52" selection-end-line="139" selection-end-column="52" />
+          <folding>
+            <element signature="e#6983#6984#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/service/CaseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="146" column="32" selection-start-line="146" selection-start-column="32" selection-end-line="146" selection-end-column="32" />
+          <folding>
+            <element signature="e#978#1024#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ge/economy/law/controller/CaseController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        <state relative-caret-position="359">
+          <caret line="103" column="20" lean-forward="true" selection-start-line="103" selection-start-column="20" selection-end-line="103" selection-end-column="20" />
         </state>
       </provider>
     </entry>
