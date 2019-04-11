@@ -550,6 +550,10 @@
                             <td>{{slcted.statusName}}</td>
                         </tr>
                         <tr>
+                            <th class="text-right">სარეზოლუციო ნაწილი</th>
+                            <td>{{slcted.resolution}}</td>
+                        </tr>
+                        <tr>
                             <th class="text-right">ალერტის თარიღი</th>
                             <td>{{slcted.expireDate}}</td>
                         </tr>
@@ -696,6 +700,14 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="form-group col-sm-10 ">
+                            <label class="control-label col-sm-3">სარეზოლუციო ნაწილი</label>
+                            <div class="col-sm-9">
+                                <textarea rows="5" cols="10" ng-model="request.resolution"
+                                          class="form-control input-sm"></textarea>
+                            </div>
+                        </div>
+
                         <div class="form-group col-sm-10 ">
                             <label class="control-label col-sm-3">სასამართლო (*)</label>
                             <div class="col-sm-9">

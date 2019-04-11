@@ -49,6 +49,7 @@ public class CaseDTO {
 	private boolean ownsUser;
 	private boolean alert;
 	private String user;
+	private String resolution;
 
 	public static CaseDTO translate(Record record, String username) {
 		CaseDTO dto = new CaseDTO();
@@ -104,6 +105,7 @@ public class CaseDTO {
 		}
 		dto.setAlert(daysBetween(record.getValue(Tables.CASE.EXPIRE_DATE)));
 		dto.setExpireDate(record.getValue(Tables.CASE.EXPIRE_DATE));
+		dto.setResolution(record.getValue(Tables.CASE.RESOLUTION));
 		return dto;
 	}
 
@@ -118,6 +120,14 @@ public class CaseDTO {
 			list.add(CaseDTO.translate(record, username));
 		}
 		return list;
+	}
+
+	public String getResolution() {
+		return resolution;
+	}
+
+	public void setResolution(String resolution) {
+		this.resolution = resolution;
 	}
 
 	public Date getExpireDate() {

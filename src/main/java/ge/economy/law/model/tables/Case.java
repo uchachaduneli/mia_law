@@ -28,7 +28,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Case extends TableImpl<CaseRecord> {
 
-	private static final long serialVersionUID = 1087943286;
+	private static final long serialVersionUID = 457395163;
 
 	/**
 	 * The reference instance of <code>public.case</code>
@@ -142,6 +142,11 @@ public class Case extends TableImpl<CaseRecord> {
 	 * The column <code>public.case.expire_date</code>.
 	 */
 	public final TableField<CaseRecord, Date> EXPIRE_DATE = createField("expire_date", org.jooq.impl.SQLDataType.DATE, this, "");
+
+	/**
+	 * The column <code>public.case.resolution</code>.
+	 */
+	public final TableField<CaseRecord, String> RESOLUTION = createField("resolution", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
 	/**
 	 * Create a <code>public.case</code> table reference

@@ -73,8 +73,7 @@ public class CaseService {
 			record.setGroupId(new SimpleDateFormat("yyMMddhhmmssMs").format(new java.util.Date()));
 		}
 
-		if (!newRecord && request.getCourtInstanceId() != record
-				.getCourtInstanceId()) {
+		if (!newRecord && request.getCourtInstanceId() != record.getCourtInstanceId()) {
 			newInstanceHidtoryRecord = true;
 			record = dslContext.newRecord(Tables.CASE);
 		}
@@ -92,7 +91,7 @@ public class CaseService {
 		}
 		if (request.getExpireDate() != null) {
 			record.setExpireDate(new Date(request.getExpireDate().getTime()));
-		}else{
+		} else {
 			record.setExpireDate(null);
 		}
 		record.setLitigationSubjectId(request.getLitigationSubjectId());
@@ -105,6 +104,7 @@ public class CaseService {
 		record.setBoardId(request.getBoardId());
 		record.setThirdPersons(request.getThirdPersons());
 		record.setCourtInstanceId(request.getCourtInstanceId());
+		record.setResolution(request.getResolution());
 
 		if (newRecord || newInstanceHidtoryRecord) {
 			try {
