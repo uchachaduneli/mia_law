@@ -91,7 +91,6 @@
     keycloak.resourceAccess = {};
     keycloak.resourceAccess['justice-service'] = {};
     keycloak.resourceAccess['justice-service'].roles = ["JUSTICE_SIP_ADMIN", "JUSTICE_ADMIN", "JUSTICE_OPERATOR", "JUSTICE_SIP_OPERATOR"];
-
     keycloak.idTokenParsed = {
         acr: "1",
         aud: "justice",
@@ -127,9 +126,28 @@
             $('#loadingModal').modal('show');
 
             function getMainData(res) {
-                $scope.list = res.data.list;
-                $scope.rowCount = res.data.size;
+                if (res.data != undefined) {
+
+                    $scope.list = res.data.list;
+                    $scope.rowCount = res.data.size;
+
+                } else {
+                    successMsg("მონაცემები ვერ მოძებნა")
+                }
                 $('#loadingModal').modal('hide');
+            }
+
+            if ($scope.srchCase.caseStartDateFrom != undefined && $scope.srchCase.caseStartDateFrom.includes('/')) {
+                $scope.srchCase.caseStartDateFrom = $scope.srchCase.caseStartDateFrom.split(/\//).reverse().join('-')
+            }
+            if ($scope.srchCase.caseStartDateTo != undefined && $scope.srchCase.caseStartDateTo.includes('/')) {
+                $scope.srchCase.caseStartDateTo = $scope.srchCase.caseStartDateTo.split(/\//).reverse().join('-')
+            }
+            if ($scope.srchCase.caseEndDateFrom != undefined && $scope.srchCase.caseEndDateFrom.includes('/')) {
+                $scope.srchCase.caseEndDateFrom = $scope.srchCase.caseEndDateFrom.split(/\//).reverse().join('-')
+            }
+            if ($scope.srchCase.caseEndDateTo != undefined && $scope.srchCase.caseEndDateTo.includes('/')) {
+                $scope.srchCase.caseEndDateTo = $scope.srchCase.caseEndDateTo.split(/\//).reverse().join('-')
             }
 
             if (keycloak.idTokenParsed == null || keycloak.idTokenParsed == undefined || keycloak.idTokenParsed.preferred_username == null || keycloak.idTokenParsed.preferred_username == undefined) {
@@ -1069,7 +1087,8 @@
                         </thead>
                         <tbody title="დეტალური ინფორმაციისთვის დაკლიკეთ ორჯერ">
                         <tr ng-repeat="r in list" ng-dblclick="handleDoubleClick(r.caseId)">
-                            <td title="Expire Date {{r.expireDate}}" style="background-color: {{(r.alert ? '#c4e3f3 !important;':'')}}">{{r.caseId}}</td>
+                            <td title="Expire Date {{r.expireDate}}" style="background-color: {{(r.alert ? '#c4e3f3 !important;':'')}}">{{r.caseId}}
+                            </td>
                             <td>{{r.name}}</td>
                             <td>{{r.number}}</td>
                             <td>{{r.courtName}}</td>
