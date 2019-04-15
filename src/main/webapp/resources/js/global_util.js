@@ -35,7 +35,7 @@ function ajaxCallWithHeaders(http, url, data, sucessCallback, errorCallback,user
             headers: {
                 'userRole': userRole,
                 'userName': userName,
-                'user': user},
+                'user': " "},
             contentType: "application/json; charset=utf-8",
             data: data
         }).success(function (data, status, headers, config) {
