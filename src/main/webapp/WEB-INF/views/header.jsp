@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="ge.economy.law.dto.UserDTO" %>
-<%@ page import="ge.economy.law.dao.USER_ROLE" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     boolean isAdmin = UserDTO.isAdmin;
@@ -99,7 +98,7 @@
                         </a>
                     </li>
                     <li title="გამოსვლა" ng-click="logout()">
-                        <a href="https://accounts.pol.ge/auth/realms/icmia/protocol/openid-connect/logout?redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fge.economy.law%2Fcases"><i class="fa fa-sign-out"></i></a>
+                        <a href="https://accounts.pol.ge/auth/realms/icmia/protocol/openid-connect/logout?redirect_uri=http://lawyers.mia.ge/law/cases"><i class="fa fa-sign-out"></i></a>
                     </li>
                 </ul>
             </div>
