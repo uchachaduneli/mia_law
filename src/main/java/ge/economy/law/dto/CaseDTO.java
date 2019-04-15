@@ -3,6 +3,8 @@ package ge.economy.law.dto;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import ge.economy.law.misc.JsonDateSerializeSupport;
 import ge.economy.law.model.Tables;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.jooq.Record;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class CaseDTO {
 	private String endResultName;
 	@JsonSerialize(using = JsonDateSerializeSupport.class)
 	private Date caseEndDate;
+	private Date expireDate;
 	private String note;
 	private Integer addUserId;
 	private String addUserName;
@@ -44,7 +47,9 @@ public class CaseDTO {
 	private String thirdPersons;
 	private String role;
 	private boolean ownsUser;
+	private boolean alert;
 	private String user;
+	private String resolution;
 
 	public static CaseDTO translate(Record record, String username) {
 		CaseDTO dto = new CaseDTO();
@@ -98,7 +103,15 @@ public class CaseDTO {
 		if (username.equals(dto.getAddUserName()) || UserDTO.isAdmin) {
 			dto.setOwnsUser(true);
 		}
+		dto.setAlert(daysBetween(record.getValue(Tables.CASE.EXPIRE_DATE)));
+		dto.setExpireDate(record.getValue(Tables.CASE.EXPIRE_DATE));
+		dto.setResolution(record.getValue(Tables.CASE.RESOLUTION));
 		return dto;
+	}
+
+	private static boolean daysBetween(java.util.Date d1) {
+		if (d1 == null) return false;
+		return Days.daysBetween(new LocalDate(d1), new LocalDate(new java.util.Date())).getDays() > -2;// erti dgit adre antebs alerts
 	}
 
 	public static List<CaseDTO> translateArray(List<Record> records, String username) {
@@ -107,6 +120,30 @@ public class CaseDTO {
 			list.add(CaseDTO.translate(record, username));
 		}
 		return list;
+	}
+
+	public String getResolution() {
+		return resolution;
+	}
+
+	public void setResolution(String resolution) {
+		this.resolution = resolution;
+	}
+
+	public Date getExpireDate() {
+		return expireDate;
+	}
+
+	public void setExpireDate(Date expireDate) {
+		this.expireDate = expireDate;
+	}
+
+	public boolean isAlert() {
+		return alert;
+	}
+
+	public void setAlert(boolean alert) {
+		this.alert = alert;
 	}
 
 	public Integer getAddUserId() {
@@ -295,7 +332,7 @@ public class CaseDTO {
 
 	/*
 	 * public Integer getAddUserId() { return addUserId; }
-	 * 
+	 *
 	 * public void setAddUserId(Integer addUserId) { this.addUserId = addUserId; }
 	 */
 

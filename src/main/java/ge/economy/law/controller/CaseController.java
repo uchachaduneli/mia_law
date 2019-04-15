@@ -1,27 +1,21 @@
 package ge.economy.law.controller;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
 import ge.economy.law.dto.UserDTO;
+import ge.economy.law.misc.CustomException;
 import ge.economy.law.misc.Response;
 import ge.economy.law.request.AddCaseRequest;
 import ge.economy.law.request.SearchCaseRequest;
 import ge.economy.law.service.CaseService;
 import ge.economy.law.service.FileService;
 import ge.economy.law.service.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author ucha
@@ -32,7 +26,7 @@ public class CaseController {
 
 	@Autowired
 	private CaseService caseService;
-	
+
 	@Autowired
 	private UsersService userService;
 
@@ -41,11 +35,10 @@ public class CaseController {
 
 	@ResponseBody
 	@RequestMapping({ "/get-cases" })
-	public Response getCases(@RequestParam("start") int start, @RequestParam("limit") int limit,
-			@RequestBody SearchCaseRequest srchCase, HttpServletRequest servletRequest,
-			@RequestHeader("userName") String username, @RequestHeader("userRole") String roles,
+	public Response getCases(@RequestParam("start") int start, @RequestParam("limit") int limit, @RequestBody SearchCaseRequest srchCase,
+			HttpServletRequest servletRequest, @RequestHeader("userName") String username, @RequestHeader("userRole") String roles,
 			@RequestHeader("user") String user) {
-		String buildRoles  = ge.economy.law.utils.StringUtils.rebuildString(roles);
+		String buildRoles = ge.economy.law.utils.StringUtils.rebuildString(roles);
 		UserDTO.setValues(username, buildRoles, user);
 		userService.saveUser();
 		return Response.withSuccess(caseService.getCases(start, limit, srchCase, buildRoles/*.split(",")*/, username));
@@ -55,7 +48,7 @@ public class CaseController {
 	@RequestMapping({ "/get-statistics" })
 	public Response getStatistics(@RequestBody SearchCaseRequest srchCase, @RequestHeader("userName") String username,
 			@RequestHeader("userRole") String roles, @RequestHeader("user") String user) {
-		String buildRoles  = ge.economy.law.utils.StringUtils.rebuildString(roles);
+		String buildRoles = ge.economy.law.utils.StringUtils.rebuildString(roles);
 		UserDTO.setValues(username, buildRoles, user);
 		userService.saveUser();
 		return Response.withSuccess(caseService.getReport(srchCase, buildRoles/*.split(",")*/, username));
@@ -83,10 +76,10 @@ public class CaseController {
 
 			request.setAddUserName(username);
 			UserDTO userDto = userService.getUser(username);
-			if(request.getAddUserId() == null) {
+			if (request.getAddUserId() == null) {
 				request.setAddUserId(userDto.getUserId());
 			}
-			String buildRoles  = ge.economy.law.utils.StringUtils.rebuildString(roles);
+			String buildRoles = ge.economy.law.utils.StringUtils.rebuildString(roles);
 			request.setRole(buildRoles);
 			request.setUser(user);
 			return Response.withSuccess(caseService.save(request));
@@ -96,11 +89,18 @@ public class CaseController {
 
 	@RequestMapping({ "/delete-case" })
 	@ResponseBody
-	public Response deleteCase(@RequestParam int id, @RequestHeader("userName") String username,
-			@RequestHeader("userRole") String roles, @RequestHeader("user") String user) {
+	public Response deleteCase(@RequestParam int id, @RequestHeader("userName") String username, @RequestHeader("userRole") String roles,
+			@RequestHeader("user") String user) {
 		UserDTO.setValues(username, roles, user);
-		caseService.deleteCase(id, username);
-		return Response.withSuccess(true);
+		try {
+			if (caseService.deleteCase(id) == 1) {
+				return Response.withSuccess(true);
+			} else {
+				return Response.withError("ოპერაცია ვერ შესრულდა !!!");
+			}
+		} catch (CustomException e) {
+			return Response.withError(e.getMessage());
+		}
 	}
 
 	@RequestMapping("/add-doc")

@@ -3,19 +3,7 @@
  */
 package ge.economy.law.model;
 
-
-import ge.economy.law.model.tables.Board;
-import ge.economy.law.model.tables.Case;
-import ge.economy.law.model.tables.CaseDoc;
-import ge.economy.law.model.tables.Court;
-import ge.economy.law.model.tables.CourtInstance;
-import ge.economy.law.model.tables.EndResult;
-import ge.economy.law.model.tables.Judge;
-import ge.economy.law.model.tables.LitigationSubject;
-import ge.economy.law.model.tables.Status;
-import ge.economy.law.model.tables.User;
-import ge.economy.law.model.tables.UserStatus;
-import ge.economy.law.model.tables.UserType;
+import ge.economy.law.model.tables.*;
 
 import javax.annotation.Generated;
 

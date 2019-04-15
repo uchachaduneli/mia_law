@@ -24,6 +24,7 @@ public class AddCaseRequest {
     private String endResultName;
     @JsonSerialize(using = JsonDateSerializeSupport.class)
     private Date caseEndDate;
+    private Date expireDate;
     private String note;
     private Integer addUserId;
     private String addUserName;
@@ -43,8 +44,23 @@ public class AddCaseRequest {
     private List<AddCaseDocRequest> docs;
     private String role;
     private String user;
-    
-    
+    private String resolution;
+
+    public String getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(String resolution) {
+        this.resolution = resolution;
+    }
+
+    public Date getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(Date expireDate) {
+        this.expireDate = expireDate;
+    }
 
     public String getUser() {
 		return user;

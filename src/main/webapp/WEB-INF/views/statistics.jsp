@@ -28,7 +28,7 @@ var keycloak = Keycloak({
             url: 'https://accounts.pol.ge/auth',
             clientId: 'justice'
         });
-        
+
         keycloak.init({ onLoad: 'login-required' }).success(function(authenticated) {
         }).error(function() {
             alert('failed to initialize');
@@ -358,7 +358,7 @@ var keycloak = Keycloak({
                         <option value="" selected="selected">მომხმარებელი</option>
                         <option ng-repeat="v in users"
                                 ng-selected="v.userId === srchCase.addUserId"
-                                value="{{v.userId}}">{{v.firstname}}{{v.lastname}}
+                                value="{{v.userId}}">{{v.name}}
                         </option>
                     </select>
                 </div>
@@ -380,6 +380,11 @@ var keycloak = Keycloak({
                         <option ng-selected="2 === srchCase.ministryStatus" value="{{2}}">მესამე პირი
                         </option>
                     </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <button class="btn btn-default col-md-11" ng-click="loadMainData()" id="srchBtnId">
+                        <span class="fa fa-search"></span> &nbsp; &nbsp;ძებნა &nbsp; &nbsp;
+                    </button>
                 </div>
                 <div class="form-group col-md-2">
                     <button class="btn btn-default col-md-11" ng-click="loadMainData()" id="srchBtnId">

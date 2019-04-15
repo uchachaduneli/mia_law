@@ -3,24 +3,16 @@
  */
 package ge.economy.law.model.tables;
 
-
 import ge.economy.law.model.Keys;
 import ge.economy.law.model.Public;
 import ge.economy.law.model.tables.records.CaseRecord;
+import org.jooq.*;
+import org.jooq.impl.TableImpl;
 
+import javax.annotation.Generated;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.annotation.Generated;
-
-import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Identity;
-import org.jooq.Table;
-import org.jooq.TableField;
-import org.jooq.UniqueKey;
-import org.jooq.impl.TableImpl;
 
 
 /**
@@ -36,7 +28,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Case extends TableImpl<CaseRecord> {
 
-	private static final long serialVersionUID = 1174216511;
+	private static final long serialVersionUID = 457395163;
 
 	/**
 	 * The reference instance of <code>public.case</code>
@@ -145,6 +137,16 @@ public class Case extends TableImpl<CaseRecord> {
 	 * The column <code>public.case.ministry_status</code>.
 	 */
 	public final TableField<CaseRecord, Integer> MINISTRY_STATUS = createField("ministry_status", org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+	/**
+	 * The column <code>public.case.expire_date</code>.
+	 */
+	public final TableField<CaseRecord, Date> EXPIRE_DATE = createField("expire_date", org.jooq.impl.SQLDataType.DATE, this, "");
+
+	/**
+	 * The column <code>public.case.resolution</code>.
+	 */
+	public final TableField<CaseRecord, String> RESOLUTION = createField("resolution", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
 	/**
 	 * Create a <code>public.case</code> table reference

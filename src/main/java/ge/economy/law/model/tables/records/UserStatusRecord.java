@@ -3,16 +3,14 @@
  */
 package ge.economy.law.model.tables.records;
 
-
 import ge.economy.law.model.tables.UserStatus;
-
-import javax.annotation.Generated;
-
 import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.Record2;
 import org.jooq.Row2;
 import org.jooq.impl.UpdatableRecordImpl;
+
+import javax.annotation.Generated;
 
 
 /**
