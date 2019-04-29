@@ -576,6 +576,10 @@
                             <td>{{slcted.expireDate}}</td>
                         </tr>
                         <tr>
+                            <th class="text-right">ალერტის დანიშნულება</th>
+                            <td>{{slcted.expireDate}}</td>
+                        </tr>
+                        <tr>
                             <th class="text-right">დოკუმენტები</th>
                             <td>
                                 <ul>
@@ -784,6 +788,13 @@
                                     <input type="text" name="enddate" ng-model="request.expireDate"
                                            class="form-control pull-right">
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-10 ">
+                            <label class="control-label col-sm-3">ალერტის დანიშნულება</label>
+                            <div class="col-sm-9">
+                                <textarea rows="5" cols="10" ng-model="request.expireNote"
+                                          class="form-control input-sm"></textarea>
                             </div>
                         </div>
                         <div class="form-group col-sm-10 ">

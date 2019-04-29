@@ -3,6 +3,7 @@
  */
 package ge.economy.law.model.tables;
 
+
 import ge.economy.law.model.Keys;
 import ge.economy.law.model.Public;
 import ge.economy.law.model.tables.records.CaseRecord;
@@ -28,7 +29,7 @@ import java.util.List;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Case extends TableImpl<CaseRecord> {
 
-	private static final long serialVersionUID = 457395163;
+    private static final long serialVersionUID = -674061174;
 
 	/**
 	 * The reference instance of <code>public.case</code>
@@ -147,6 +148,11 @@ public class Case extends TableImpl<CaseRecord> {
 	 * The column <code>public.case.resolution</code>.
 	 */
 	public final TableField<CaseRecord, String> RESOLUTION = createField("resolution", org.jooq.impl.SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.case.expire_note</code>.
+     */
+    public final TableField<CaseRecord, String> EXPIRE_NOTE = createField("expire_note", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
 	/**
 	 * Create a <code>public.case</code> table reference

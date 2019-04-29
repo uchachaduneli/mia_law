@@ -63,6 +63,8 @@
                 $('#selected_item').text("მომხმარებლები");
             } else if (url.pathname.indexOf("statistics") > -1) {
                 $('#selected_item').text("სტატისტიკა");
+            } else if (url.pathname.indexOf("calendar") > -1) {
+                $('#selected_item').text("");
             }
 
         });
@@ -154,6 +156,13 @@
                         <a href="judges">
                             <i class="fa fa-graduation-cap"></i>
                             <span>მოსამართლეები</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="calendar">
+                            <i class="fa fa-calendar"></i>
+                            <span>კალენდარი</span>
                             </span>
                         </a>
                     </li>

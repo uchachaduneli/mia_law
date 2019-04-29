@@ -98,6 +98,7 @@ public class CaseService {
 		record.setLitigationDescription(request.getLitigationDescription());
 		record.setEndResultId(request.getEndResultId());
 		record.setNote(request.getNote());
+        record.setNote(request.getExpireNote());
 		record.setCourtId(request.getCourtId());
 		record.setStatusId(request.getStatusId());
 		record.setMinistryStatus(request.getMinistryStatus());

@@ -1,9 +1,5 @@
 package ge.economy.law.controller;
 
-import java.security.Principal;
-
-import javax.validation.constraints.NotNull;
-
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -11,6 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.constraints.NotNull;
+import java.security.Principal;
 
 /**
  * @author ucha
@@ -53,6 +52,11 @@ public class WebController {
     @RequestMapping("/caseresults")
     public String caseresults() {
         return "caseresults";
+    }
+
+    @RequestMapping("/calendar")
+    public String calendar() {
+        return "calendar";
     }
     
     

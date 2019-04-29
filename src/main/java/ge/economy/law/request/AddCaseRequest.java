@@ -45,6 +45,15 @@ public class AddCaseRequest {
     private String role;
     private String user;
     private String resolution;
+    private String expireNote;
+
+    public String getExpireNote() {
+        return expireNote;
+    }
+
+    public void setExpireNote(String expireNote) {
+        this.expireNote = expireNote;
+    }
 
     public String getResolution() {
         return resolution;
