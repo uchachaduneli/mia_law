@@ -155,7 +155,7 @@
                         <th>ID</th>
                         <th>სახელი</th>
                         <c:if test="<%= isAdmin %>">
-                            <th class="col-md-2 text-center">Action</th>
+                            <th class="col-md-2 text-center">მოქმედება</th>
                         </c:if>
                     </tr>
                     </thead>

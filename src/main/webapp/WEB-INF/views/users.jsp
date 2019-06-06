@@ -187,7 +187,7 @@
                         <th>ტიპი</th>
                         <th>სტატუსი</th>
                         <th class="col-md-1 text-center">დამატ. დრო</th>
-                        <th class="col-md-2 text-center">Action</th>
+                        <th class="col-md-2 text-center">მოქმედება</th>
                     </tr>
                     </thead>
                     <tbody>
