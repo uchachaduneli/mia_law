@@ -96,7 +96,7 @@
         aud: "justice",
         auth_time: 1553603458,
         azp: "justice",
-        exp: 1553604658,
+        exp: 1559849887,
         family_name: "ნაჭყებია",
         given_name: "ალეკო",
         iat: 1553603458,
@@ -619,7 +619,7 @@
                             </div>
                         </div>
                         <div class="form-group col-sm-10 ">
-                            <label class="control-label col-sm-3">საქმის # (*)</label>
+                            <label class="control-label col-sm-3">საქმის N (*)</label>
                             <div class="col-sm-9">
                                 <input type="text" ng-model="request.number" name="number" required
                                        class="form-control input-sm">
@@ -930,7 +930,7 @@
                                 </div>
                                 <div class="form-group col-md-2">
                                     <input type="text" class="form-control srch" ng-model="srchCase.number"
-                                           placeholder="საქმის #">
+                                           placeholder="საქმის N">
                                 </div>
                                 <div class="form-group col-md-2">
                                     <input type="text" class="form-control srch"
@@ -1086,14 +1086,14 @@
                         <tr>
                             <th>ID</th>
                             <th>დასახელება</th>
-                            <th>საქმის #</th>
+                            <th>საქმის N</th>
                             <th>სასამართლო</th>
                             <th>მოსამართლე</th>
                             <th>საქმე დაიწყო</th>
                             <th>საქმე დასრულდა</th>
                             <th>თანამშრომელი</th>
                             <th>სტატუსი</th>
-                            <th class="col-md-2 text-center">Action</th>
+                            <th class="col-md-2 text-center">მოქმედება</th>
                         </tr>
                         </thead>
                         <tbody title="დეტალური ინფორმაციისთვის დაკლიკეთ ორჯერ">
