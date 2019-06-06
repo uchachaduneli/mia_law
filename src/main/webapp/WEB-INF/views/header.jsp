@@ -159,13 +159,13 @@
                             </span>
                         </a>
                     </li>
-                    <li>
-                        <a href="calendar">
-                            <i class="fa fa-calendar"></i>
-                            <span>კალენდარი</span>
-                            </span>
-                        </a>
-                    </li>
+                    <%--<li>--%>
+                        <%--<a href="calendar">--%>
+                            <%--<i class="fa fa-calendar"></i>--%>
+                            <%--<span>კალენდარი</span>--%>
+                            <%--</span>--%>
+                        <%--</a>--%>
+                    <%--</li>--%>
                     <c:if test="<%= true %>">
                         <!-- <li>
                             <a href="users">
