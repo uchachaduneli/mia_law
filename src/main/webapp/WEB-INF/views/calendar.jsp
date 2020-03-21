@@ -53,7 +53,7 @@
         aud: "justice",
         auth_time: 1553603458,
         azp: "justice",
-        exp: 1553604658,
+        exp: 1585798878,
         family_name: "ნაჭყებია",
         given_name: "ალეკო",
         iat: 1553603458,

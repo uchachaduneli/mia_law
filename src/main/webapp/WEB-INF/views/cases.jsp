@@ -118,6 +118,7 @@
         $scope.limit = "15";
         $scope.request = {docs: []};
         $scope.srchCase = {};
+        $scope.isEdit = false;
 
 
 //        $scope.request.docs = [];
@@ -352,16 +353,28 @@
         $scope.edit = function (id) {
             $('#uploadDocNameInput').val();
             if (id != undefined) {
+                $scope.isEdit = true;
                 var selected = $filter('filter')($scope.list, {caseId: id}, true);
                 $scope.request = selected[0];
                 $scope.loadCaseDocNames($scope.request.caseId);
+                $scope.showDetails(id);
 //                $scope.request.judgeId = parseInt($scope.request.judgeId);
             }
         };
 
 
+        $scope.updateByInstance = function () {
+            console.log($scope.request.caseId);
+            var selected = $filter('filter')($scope.caseInstances, {caseId: parseInt($scope.request.caseId)}, true);
+            $scope.request = selected[0];
+            console.log($scope.caseInstances);
+            console.log($scope.cases);
+            console.log(selected);
+        };
+
         $scope.init = function () {
             $scope.request = {docs: []};
+            $scope.isEdit = false;
             $('#uploadDocNameInput').val();
         };
 
@@ -611,6 +624,18 @@
             <div class="modal-body">
                 <div class="row">
                     <form class="form-horizontal" name="ediFormName">
+                        <div class="form-group col-sm-10 " ng-if="isEdit">
+                            <label class="control-label col-sm-3">{{request.caseId}} დარედაქტირდეს ამ ინსტანციის
+                                ჩანაწერი</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" ng-model="request.caseId"
+                                        ng-change="updateByInstance(request.caseId)">
+                                    <option ng-repeat="v in caseInstances" ng-selected="v.caseId === request.caseId"
+                                            value="{{v.caseId}}">{{$index + 1}}. {{v.courtInstanceName}} {{v.caseId}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group col-sm-10 ">
                             <label class="control-label col-sm-3">დასახელება (*)</label>
                             <div class="col-sm-9">
@@ -847,7 +872,8 @@
 </div>
 
 
-<div class="modal fade bs-example-modal-lg not-printable" id="assignModal" role="dialog" aria-labelledby="assignModalLabel"
+<div class="modal fade bs-example-modal-lg not-printable" id="assignModal" role="dialog"
+     aria-labelledby="assignModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -1059,7 +1085,8 @@
                                         </option>
                                         <option ng-selected="4 === srchCase.ministryStatus" value="{{4}}">აპელანტი
                                         </option>
-                                        <option ng-selected="5 === srchCase.ministryStatus" value="{{5}}">მოწინააღმდეგე მხარე
+                                        <option ng-selected="5 === srchCase.ministryStatus" value="{{5}}">მოწინააღმდეგე
+                                            მხარე
                                         </option>
                                         <option ng-selected="6 === srchCase.ministryStatus" value="{{6}}">კასატორი
                                         </option>
@@ -1098,7 +1125,8 @@
                         </thead>
                         <tbody title="დეტალური ინფორმაციისთვის დაკლიკეთ ორჯერ">
                         <tr ng-repeat="r in list" ng-dblclick="handleDoubleClick(r.caseId)">
-                            <td title="Expire Date {{r.expireDate}}" style="background-color: {{(r.alert ? '#c4e3f3 !important;':'')}}">{{r.caseId}}
+                            <td title="Expire Date {{r.expireDate}}"
+                                style="background-color: {{(r.alert ? '#c4e3f3 !important;':'')}}">{{r.caseId}}
                             </td>
                             <td>{{r.name}}</td>
                             <td>{{r.number}}</td>
@@ -1152,4 +1180,4 @@
             </div>
         </div>
     </div>
-<%@include file="footer.jsp" %>
+    <%@include file="footer.jsp" %>

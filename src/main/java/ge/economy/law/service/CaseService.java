@@ -37,7 +37,7 @@ public class CaseService {
 	@Autowired
 	private DSLContext dslContext;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public HashMap<String, Object> getCases(int start, int limit, SearchCaseRequest srchCase, String userRoles, String username) {
 
 		HashMap<String, Object> resultMap = new HashMap<>();
@@ -48,7 +48,7 @@ public class CaseService {
 		return resultMap;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public HashMap<String, Object> getReport(SearchCaseRequest srchCase, String userRoles, String username) {
 		HashMap<String, Object> resultMap = new HashMap<>();
 		HashMap<String, Object> map = caseDAO.getReport(srchCase, userRoles);
@@ -98,7 +98,7 @@ public class CaseService {
 		record.setLitigationDescription(request.getLitigationDescription());
 		record.setEndResultId(request.getEndResultId());
 		record.setNote(request.getNote());
-        record.setNote(request.getExpireNote());
+		record.setNote(request.getExpireNote());
 		record.setCourtId(request.getCourtId());
 		record.setStatusId(request.getStatusId());
 		record.setMinistryStatus(request.getMinistryStatus());
@@ -119,16 +119,17 @@ public class CaseService {
 			record.update();
 		}
 
-		if (!request.getDocs().isEmpty() && record.getCaseId() != null) {
-			utilDAO.deleteCaseDoc(record.getCaseId());
-			CaseDocRecord docRecord;
-			for (AddCaseDocRequest doc : request.getDocs()) {
-				docRecord = dslContext.newRecord(Tables.CASE_DOC);
-				docRecord.setName(doc.getName());
-				docRecord.setCaseId(record.getCaseId());
-				docRecord.store();
+		if (request.getDocs() != null && record.getCaseId() != null) {
+			if (!request.getDocs().isEmpty()) {
+				utilDAO.deleteCaseDoc(record.getCaseId());
+				CaseDocRecord docRecord;
+				for (AddCaseDocRequest doc : request.getDocs()) {
+					docRecord = dslContext.newRecord(Tables.CASE_DOC);
+					docRecord.setName(doc.getName());
+					docRecord.setCaseId(record.getCaseId());
+					docRecord.store();
+				}
 			}
-
 		}
 
 		return CaseDTO.translate(caseDAO.getWholeCaseObjectById(record.getCaseId()), request.getAddUserName());
